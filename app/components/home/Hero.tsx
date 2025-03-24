@@ -44,7 +44,7 @@ const Hero = () => {
         transition={{ duration: 1, delay: 2 }}
       >
         <button className="py-3 px-6 bg-[#B68250] rounded-2xl cursor-pointer hover:bg-[#C9DDEE] transition duration-300 ease-in-out">
-          <Link href="/porfolio">Explore My Work</Link>
+          <Link href="/portfolio">Explore My Work</Link>
         </button>
         <button className="py-3 px-6 bg-[#B68250] rounded-2xl cursor-pointer hover:bg-[#C9DDEE] transition duration-300 ease-in-out">
           <Link href='/contact'>Let's Build Together</Link>
