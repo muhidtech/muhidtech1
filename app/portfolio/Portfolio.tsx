@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -57,9 +58,11 @@ const Portfolio = () => {
             transition={{ duration: 0.7, delay: index * 0.3 }}
           >
             <div className="h-60 bg-gray-800 rounded-xl mb-5">
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
+                width={800}
+                height={1000}
                 className="w-full h-full object-cover rounded-xl"
               />
             </div>
@@ -88,7 +91,7 @@ const Portfolio = () => {
         </p>
 
         <Link href="/contact" className="py-3 px-6 bg-[#B68250] rounded-2xl text-lg hover:bg-[#C9DDEE] transition duration-300">
-          Let's Work Together
+          Let&apos;s Work Together
         </Link>
       </motion.div>
     </main>

@@ -39,7 +39,7 @@ const About = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        I'm Muhideen, a passionate Front-End Developer with expertise in React.js, Next.js, TypeScript, and Tailwind CSS. I specialize in creating fast, responsive, and SEO-optimized web applications that provide excellent user experiences. Let me bring your vision to life with modern, clean, and scalable front-end solutions.
+        I&#39;m Muhideen, a passionate Front-End Developer with expertise in React.js, Next.js, TypeScript, and Tailwind CSS. I specialize in creating fast, responsive, and SEO-optimized web applications that provide excellent user experiences. Let me bring your vision to life with modern, clean, and scalable front-end solutions.
       </motion.p>
 
       <div className="overflow-hidden w-full max-w-5xl mb-12">
@@ -72,7 +72,7 @@ const About = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
       >
-        I deliver high-quality, scalable, and SEO-optimized solutions. With a keen eye for design and performance, I ensure your website not only looks great but also performs exceptionally well. Let's collaborate to build something remarkable!
+        I deliver high-quality, scalable, and SEO-optimized solutions. With a keen eye for design and performance, I ensure your website not only looks great but also performs exceptionally well. Let&#39;s collaborate to build something remarkable!
       </motion.p>
 
       <motion.h2
@@ -92,7 +92,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5 + index * 0.3 }}
           >
-            <p className="text-lg">"{review}"</p>
+            <p className="text-lg">&quot;{review}&quot;</p>
           </motion.div>
         ))}
       </div>
