@@ -18,6 +18,10 @@ export const metadata: Metadata = {
     template: "%s - MuhidTrick | FrontEnd Developer"
   },
   description: "I am a Frontend Developer specializing in React.js, Next.js, and Tailwind CSS. Explore my portfolio to see my best work.",  keywords: "Frontend Developer, React.js, Typescript, Next.js, Tailwind CSS, Web Development, Portfolio, E-commerce Websites",
+  twitter: {
+    card: "summary_large_image"
+  }
+
 };
 
 export default function RootLayout({
