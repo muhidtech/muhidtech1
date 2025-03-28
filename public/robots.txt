@@ -4,3 +4,6 @@ Allow: /
 
 # Host
 Host: https://muhidtech.vercel.app/
+
+# Sitemaps
+Sitemap: https://muhidtech.vercel.app/sitemap.xml
