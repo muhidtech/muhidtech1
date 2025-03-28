@@ -9,4 +9,5 @@ module.exports = {
     { loc: "/about", lastmod: new Date().toISOString() },
     { loc: "/portfolio", lastmod: new Date().toISOString() },
   ],
+  exclude: [], // Ensure all pages are
 };
