@@ -47,7 +47,7 @@ const Hero = () => {
           <Link href="/portfolio">Explore My Work</Link>
         </button>
         <button className="py-3 px-6 bg-[#B68250] rounded-2xl cursor-pointer hover:bg-[#C9DDEE] transition duration-300 ease-in-out">
-          <Link href='/contact'>Let&apos;s Build Together</Link>
+          <Link href='/contact'>Hire Me</Link>
         </button>
       </motion.div>
     </main>
