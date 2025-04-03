@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "MuhidTrick | FrontEnd Developer",
-    template: "%s - MuhidTrick | FrontEnd Developer"
+    default: "MuhidTech | FrontEnd Developer",
+    template: "%s - MuhidTech | FrontEnd Developer"
   },
   description: "I am a Frontend Developer specializing in React.js, Next.js, and Tailwind CSS. Explore my portfolio to see my best work.",  keywords: "Frontend Developer, React.js, Typescript, Next.js, Tailwind CSS, Web Development, Portfolio, E-commerce Websites",
   twitter: {
