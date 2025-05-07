@@ -3,12 +3,18 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production", // Removes console logs in production
   },
   images: {
-    formats: ["image/webp", "image/avif"],
-    // domains: ["your-cdn.com"], // Uncomment and edit if needed
+    formats: ["image/webp", "image/avif"], // Use modern image formats
+  },
+  experimental: {
+    optimizeCss: true, // Enable CSS optimization
   },
 };
 
-export default nextConfig;
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer(nextConfig);

@@ -27,6 +27,8 @@ export default function ParallaxSection({ image, title, description }: ParallaxS
           layout="fill"
           objectFit="cover"
           objectPosition="center"
+          loading="eager"
+          decoding="async"
           priority
         />
       </motion.div>

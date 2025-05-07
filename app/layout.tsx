@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
-
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: 'swap'
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap'
 });
 
 export const metadata: Metadata = {
@@ -102,10 +103,8 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#06b6d4" />
 
-        {/* Preload Fonts */}
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" as="style" />
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist_Mono:wght@400;500&display=swap" as="style" />
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" as="style" />
+        {/* Remove redundant font preloads */}
+        <link rel="preload" href="/icon1.png" as="image" />
 
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -134,8 +133,9 @@ export default function RootLayout({
       </head>
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable}  ${inter} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <SpeedInsights />
         {children}
       </body>
     </html>

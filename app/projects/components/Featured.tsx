@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 // Example project data (would normally come from JSON)
 const projectsData = [
@@ -122,7 +123,14 @@ export default function FeaturedProjects() {
               className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:scale-[1.02] transition overflow-hidden"
             >
               <div className="relative w-full h-48 mb-4 rounded-xl overflow-hidden">
-                <Image src={project.image} alt={project.title} fill className="object-cover" />
+                <Image 
+                src={project.image} 
+                alt={project.title} 
+                fill 
+                loading="eager"
+                decoding="async"
+                priority
+                className="object-cover" />
               </div>
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
               <p className="text-gray-300 text-sm mb-3">{project.description}</p>
@@ -135,6 +143,13 @@ export default function FeaturedProjects() {
                     {tech}
                   </span>
                 ))}
+              </div>
+              <div className="flex justify-center w-full mt-4">
+                <button className="bg-cyan-500 text-white px-4 py-2 rounded-xl hover:bg-cyan-600 transition">
+                  <Link href={project.url} target="_blank" >
+                    View Project
+                  </Link>
+                </button>
               </div>
             </motion.div>
           ))}

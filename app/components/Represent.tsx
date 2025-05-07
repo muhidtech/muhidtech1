@@ -70,6 +70,8 @@ export default function Represent() {
                 fill
                 src="/logo.jpeg" // Replace with your actual image path
                 alt="Preview"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/80" />
