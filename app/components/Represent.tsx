@@ -38,7 +38,7 @@ const sections = [
         "Discover the MuhidTech team, our mission, and our commitment to delivering high-quality web solutions tailored to your needs.",
       icon: FaEye,
       link: "/about",
-      text: "Learn More",
+      text: "Get to Know Us",
     }
   ];
 

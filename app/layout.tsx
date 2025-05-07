@@ -105,9 +105,6 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#06b6d4" />
 
-        {/* Remove redundant font preloads */}
-        <link rel="preload" href="/logo1.jpeg" as="image" />
-
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
