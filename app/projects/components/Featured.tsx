@@ -9,30 +9,61 @@ const projectsData = [
   {
     id: 1,
     title: "NovaCart - eCommerce Landing Page",
-    category: "eCommerce",
-    image: "/projects/ecommerce1.jpg",
+    category: "Landing Page",
+    image: "/projects/novacart.png",
     description: "A blazing fast, conversion-focused eCommerce landing page.",
-    techStack: ["Next.js", "TailwindCSS", "Framer Motion", "SEO"],
-    url: ""
+    techStack: ["Next.js", "TailwindCSS", "Framer Motion", "Typescript", "SEO"],
+    url: "https://novacarts.netlify.app/"
   },
   {
     id: 2,
-    title: "Muhid Portfolio",
+    title: "MuhidTech - Portfolio",
     category: "Portfolio",
-    image: "/projects/portfolio1.jpg",
+    image: "/projects/muhidtech.png",
     description: "A sleek portfolio site to showcase creative work and case studies.",
-    techStack: ["React", "TailwindCSS", "Framer Motion"],
+    techStack: ["Next.js", "TailwindCSS", "Typescript", "Framer Motion", "SEO"],
     url: "https://muhidtech.vercel.app"
   },
   {
     id: 3,
-    title: "NovaBrand Website",
+    title: "eCompany - Company Portfolio Website",
+    category: "Portfolio",
+    image: "/projects/ecompany.png",
+    description: "A modern company portfolio website with a focus on user experience.",
+    techStack: ["Next.js", "TailwindCSS", "Typescript", "SEO"],
+    url: "https://ecompanys.netlify.app/"
+  },
+  {
+    id: 4,
+    title: "TaxPal - A clone Website",
     category: "Website",
-    image: "/projects/website1.jpg",
-    description: "A modern brand site with animations and smooth UX.",
-    techStack: ["Next.js", "CSS", "SEO"],
-    url: ""
-  }
+    image: "/projects/TaxPal.png",
+    description: "A clone website for TaxPal, showcasing a clean and modern design.",
+    techStack: ["React.js", "TailwindCSS", "JavaScript"],
+    url: "https://ecompanys.netlify.app/"
+  },
+  
+  {
+    id: 5,
+    title: "EcoHaven - A fully functional eCommerce website",
+    category: "eCommerce",
+    image: "/projects/ecoHaven.png",
+    description: "A fully functional eCommerce website with a focus on sustainability.",
+    techStack: ["Next.js", "TailwindCSS", "Framer Motion", "Typescript", "Django", "Sqlite"],
+    url: "https://ecohaven.vercel.app/"
+  },
+  {
+    id: 6,
+    title: "Insure - Landing Page",
+    category: "Landing Page",
+    image: "/projects/insure.png",
+    description: "A landing page for an insurance company, designed to convert visitors into leads.",
+    techStack: ["Next.js", "TailwindCSS", "Framer Motion", "Typescript"],
+    url: "https://insure-landing-pagesa.netlify.app/"
+  },
+
+  
+
 ];
 
 const categories = Array.from(
