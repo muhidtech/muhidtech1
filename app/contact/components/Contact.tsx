@@ -50,7 +50,7 @@ const Contact = () => {
         transition={{ duration: 1 }}
         className="text-4xl font-semibold  font-mono  mb-10"
       >
-        Let's Build Your Dream Project Together!
+        Let&lsquo;s Build Your Dream Project Together!
       </motion.h1>
 
       <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-6">
