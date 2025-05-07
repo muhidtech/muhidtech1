@@ -24,11 +24,10 @@ export default function ParallaxSection({ image, title, description }: ParallaxS
         <Image
           src={image}
           alt={title}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          fill
+          sizes="(max-width: 768px) 100vw, 750px"
+          style={{ objectFit: "cover", objectPosition: "center" }}
           loading="eager"
-          decoding="async"
           priority
         />
       </motion.div>

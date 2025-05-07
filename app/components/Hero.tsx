@@ -103,6 +103,7 @@ export default function Hero() {
                 alt="MuhidTech"
                 width={500}
                 height={500}
+                sizes="(max-width: 768px) 100vw, 500px"
                 priority
                 className='w-full h-auto max-w-xs sm:max-w-md lg:max-w-lg rounded-2xl bg-cover '
               />
