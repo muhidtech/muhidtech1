@@ -93,7 +93,7 @@ export default function Represent() {
                     <section.icon className="text-3xl text-cyan-500 " />
                 </span>
                 <button className="px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-700 transition duration-300 cursor-pointer">
-                    <Link href="/contact" className="">
+                    <Link href="/contact"  aria-label="Learn more about this section" >
                         Learn More
                     </Link>
                 </button>
