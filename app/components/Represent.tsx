@@ -14,6 +14,7 @@ const sections = [
         "Begin your next project with MuhidTech. Let’s chat about your goals, ideas, and how we can bring them to life through modern web development.",
       icon: FaPaperPlane,
       link: "/contact",
+      text: "Learn More",
     },
     {
       title: "Read Our Insights",
@@ -21,6 +22,7 @@ const sections = [
         "Explore articles on web development, SEO, UI/UX, and emerging tech trends written by the MuhidTech team to keep you ahead.",
       icon: FaBlog,
       link: "/blog",
+      text: "Learn More",
     },
     {
       title: "Browse Our Work",
@@ -28,6 +30,7 @@ const sections = [
         "Check out real-world projects and client solutions built with React, Next.js, TailwindCSS, and Django by the MuhidTech team.",
       icon: FaFolderOpen,
       link: "/projects",
+      text: "Learn More",
     },
     {
       title: "Learn About Us",
@@ -35,6 +38,7 @@ const sections = [
         "Discover the MuhidTech team, our mission, and our commitment to delivering high-quality web solutions tailored to your needs.",
       icon: FaEye,
       link: "/about",
+      text: "Learn More",
     }
   ];
 
@@ -94,7 +98,7 @@ export default function Represent() {
                 </span>
                 <button className="px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-700 transition duration-300 cursor-pointer">
                     <Link href={section.link}  aria-label={`Learn more about this ${section.title} `} >
-                        Learn More
+                        {section.text}
                     </Link>
                 </button>
             </div>
