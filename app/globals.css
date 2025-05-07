@@ -1,21 +1,12 @@
-@import 'tailwindcss';
-
+@import "tailwindcss";
 
 @layer base {
-    html {
-      @apply scroll-smooth;
-    }
-    
-    p, h1 {
-        @apply text-white
-    }
-
+  html {
+    @apply scroll-smooth overflow-x-hidden;
   }
 
-    body {
-        margin: 0;
-        overflow-x: hidden;
-        font-family: 'Nunito', sans-serif;
-        background: linear-gradient(90deg, rgba(39,86,139,1) 35%, rgba(71,161,196,1) 100%);
-        
-    }
+  body {
+    /* @apply overflow-x-hidden bg-gray-900 dark:text-gray-200 bg-gray-300 text-gray-800; */
+    @apply overflow-x-hidden  bg-gradient-to-r from-black/80 via-gray-800 to-indigo-700 text-gray-200;
+  }
+}

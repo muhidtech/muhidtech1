@@ -48,9 +48,9 @@ const Contact = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-semibold mb-10"
+        className="text-4xl font-semibold  font-mono  mb-10"
       >
-        Get In Touch
+        Let's Build Your Dream Project Together!
       </motion.h1>
 
       <form onSubmit={handleSubmit} className="w-full max-w-2xl space-y-6">
@@ -61,17 +61,17 @@ const Contact = () => {
           value={form.name}
           onChange={handleChange}
           required
-          className="w-full p-4 bg-gray-800 rounded-lg focus:outline-none"
+          className="w-full p-4 bg-gray-800 border border-cyan-500 rounded-lg focus:outline-none"
         />
 
         <input
           type="email"
           name="email"
-          placeholder="Your Email"
+          placeholder="Your Email: example@example.com"
           value={form.email}
           onChange={handleChange}
           required
-          className="w-full p-4 bg-gray-800 rounded-lg focus:outline-none"
+          className="w-full p-4 bg-gray-800 rounded-lg border border-cyan-500 focus:outline-none"
         />
 
         <textarea
@@ -81,14 +81,14 @@ const Contact = () => {
           onChange={handleChange}
           required
           rows={5}
-          className="w-full p-4 bg-gray-800 rounded-lg focus:outline-none"
+          className="w-full p-4 bg-gray-800 rounded-lg border border-cyan-500 focus:outline-none"
         ></textarea>
 
         <motion.button
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="py-3 px-6 bg-[#B68250] rounded-2xl cursor-pointer hover:bg-[#C9DDEE] transition duration-300"
+          className="py-3 px-6 bg-cyan-500 rounded-2xl cursor-pointer hover:bg-[#C9DDEE] transition duration-300"
           disabled={loading}
         >
           {loading ? 'Sending...' : 'Send Message'}
