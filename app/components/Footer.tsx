@@ -2,9 +2,11 @@
 
 
 import Link from 'next/link';
+import dayjs from "dayjs";
 import { FaLinkedin, FaTwitter, FaGithub, FaEnvelope, FaYoutube, FaInstagram, FaTiktok, FaFacebook } from 'react-icons/fa';
 
 export default function Footer() {
+  const currentYear = dayjs().year(); // Get the current year using dayjs
   return (
     <footer className="w-full  ">
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -57,13 +59,13 @@ export default function Footer() {
             <Link href="https://www.linkedin.com/in/mohammed-muhideen-abdul-kadir-19aa99357" target="_blank" aria-label="LinkedIn">
               <FaLinkedin className="hover:text-cyan-400 transition" />
             </Link>
-            <Link href="https://www.tiktok.com/@muhidtech">
+            <Link href="https://www.tiktok.com/@muhidtech" target="_blank" aria-label="TikTok">
               <FaTiktok className="hover:text-cyan-400 transition" />
             </Link>
             <Link href="https://www.instagram.com/muhidtech__/" target="_blank" aria-label="Instagram">
               <FaInstagram className="hover:text-cyan-400 transition" />
             </Link>
-            <Link href="https://web.facebook.com/profile.php?id=61575545686798">
+            <Link href="https://web.facebook.com/profile.php?id=61575545686798" target="_blank" aria-label="Facebook">
               <FaFacebook className="hover:text-cyan-400 transition" />
             </Link>
             <Link href="https://www.youtube.com/@MuhidTech" target="_blank" aria-label="YouTube">
@@ -74,7 +76,7 @@ export default function Footer() {
       </div>
 
       <div className="text-center text-xs text-gray-500 py-6 border-t border-white/10">
-        © {new Date().getFullYear()} MuhidTech. All rights reserved.
+        © {currentYear} MuhidTech. All rights reserved.
       </div>
     </footer>
   );

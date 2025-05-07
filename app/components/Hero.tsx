@@ -77,7 +77,7 @@ export default function Hero() {
             <button>
               <Link
                 href="/contact"
-                className="flex items-center text-white bg-cyan-500 hover:bg-cyan-700 font-bold py-2 px-4 rounded-xl"
+                className="flex items-center text-black/80 bg-cyan-500 hover:bg-cyan-700 font-bold py-2 px-4 rounded-xl"
               >
                 <FaTelegramPlane className="mr-2" />
                 Let&rsquo;s Talk
