@@ -43,7 +43,7 @@ export default function WhatMakesUsDifferent() {
       >
         <h2 className="text-4xl font-bold text-cyan-400">What Makes Us Different</h2>
         <p className="mt-4 text-gray-300 text-lg max-w-3xl mx-auto">
-          At MuhidTech, we're not just developers—we’re digital partners focused on excellence, efficiency, and growth.
+          At MuhidTech, we&lsquo;re not just developers—we&lsquo;re digital partners focused on excellence, efficiency, and growth.
         </p>
       </motion.div>
 

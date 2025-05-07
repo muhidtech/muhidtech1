@@ -55,7 +55,7 @@ export default function Timeline() {
           transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
           className="text-gray-300 text-sm  text-center max-w-2xl mx-auto z-10 relative"
         >
-          From our inception to our latest projects, here's a glimpse into our journey and milestones.
+          From our inception to our latest projects, here&lsquo;s a glimpse into our journey and milestones.
         </motion.p>
       </h1>
       <div className="relative z-10 max-w-5xl mx-auto space-y-40 md:border-x border-cyan-500">

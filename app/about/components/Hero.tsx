@@ -34,7 +34,7 @@ export default function AboutHero() {
           Meet the Team Behind <span className="text-cyan-500">MuhidTech</span>
         </h1>
         <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-          At MuhidTech, we're passionate builders, designers, and engineers who believe in transforming ideas into high-performance digital experiences. Learn more about our journey, our values, and the tech that powers our work.
+          At MuhidTech, we&lsquo;re passionate builders, designers, and engineers who believe in transforming ideas into high-performance digital experiences. Learn more about our journey, our values, and the tech that powers our work.
         </p>
         <div className="pt-4">
           <Link href="/contact" className="inline-block px-6 py-3 bg-cyan-500 text-white font-semibold rounded-lg hover:bg-cyan-600 transition-all duration-300">

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BadgeCheck } from "lucide-react";
 import Image from "next/image";
 
 // Example project data (would normally come from JSON)

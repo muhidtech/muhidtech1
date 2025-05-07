@@ -29,7 +29,7 @@ export default function TechStack() {
       >
         <h2 className="text-3xl md:text-5xl font-bold mb-4 text-cyan-500">Technologies We Use</h2>
         <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
-          At MuhidTech, we leverage a powerful, modern tech stack to build high-performance and scalable websites. Here's what powers our development.
+          At MuhidTech, we leverage a powerful, modern tech stack to build high-performance and scalable websites. Here&lsquo;s what powers our development.
         </p>
       </motion.div>
 

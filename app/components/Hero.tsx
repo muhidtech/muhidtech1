@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import React, { use, useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaTelegramPlane } from 'react-icons/fa'; // Import the icon you want to use
 import { motion } from 'framer-motion'
 import Image from 'next/image';
@@ -19,7 +19,7 @@ export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
 
 
-  const { transform, transition } = hoverEffect({ ref: heroRef, x: 30, y: -40, z: 30 });
+  const { transform } = hoverEffect({ ref: heroRef, x: 30, y: -40, z: 30 });
 
   const imghover = hoverEffect({ ref: heroRef, x: 20, y: -50, z: 11 });
   return (
@@ -178,8 +178,8 @@ interface HoverEffectProps {
   }
   
   const hoverEffect = ({ ref, x = 0, y = 0, z = 0 }: HoverEffectProps): HoverEffectReturn => {
-    const [coords, setCoords] = React.useState({ x: 0, y: 0, z: 0 });
-    const [isHovering, setIsHovering] = React.useState(false);
+    const [coords, setCoords] = useState({ x: 0, y: 0, z: 0 });
+    const [isHovering, setIsHovering] = useState(false);
   
     const handleMouseMove = (e: MouseEvent) => {
       if (ref.current) {

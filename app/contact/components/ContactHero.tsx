@@ -12,10 +12,10 @@ export default function ContactHero() {
         className="text-center max-w-3xl z-10"
       >
         <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-          Let’s Talk About Your Next Big Thing
+          Le&lsquo;s Talk About Your Next Big Thing
         </h1>
         <p className="text-gray-300 text-base sm:text-lg">
-          Have an idea, project, or question? Drop a message and we’ll connect as soon as possible.
+          Have an idea, project, or question? Drop a message and we&lsquo;ll connect as soon as possible.
         </p>
       </motion.div>
 

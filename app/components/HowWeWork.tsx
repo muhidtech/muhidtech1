@@ -79,14 +79,14 @@ export default function HowWeWork() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-white/90 text-lg mb-6"
           >
-            Let’s build something powerful and scalable together. Contact us today to get started.
+            Let&lsquo;s build something powerful and scalable together. Contact us today to get started.
           </motion.p>
           <motion.a
             href="/contact"
             whileHover={{ scale: 1.05 }}
             className="inline-block bg-black text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-800 transition"
           >
-            Let's Talk
+            Let&lsquo;s Talk
           </motion.a>
         </div>
       </div>

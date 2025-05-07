@@ -5,7 +5,7 @@ import { Metadata } from 'next'
 import ContactHero from './components/ContactHero'
 import Contact from './components/Contact'
 import ContactInfoSocials from './components/ContactInfo'
-import WhatsAppCTA, { FAQs } from './components/Whats'
+// import WhatsAppCTA, { FAQs } from './components/Whats'
 import FaqSection from '../components/FaqSection'
 import DownloadCV from '../projects/components/DownloadCV'
 
