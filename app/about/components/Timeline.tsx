@@ -75,7 +75,7 @@ export default function Timeline() {
             <motion.div
               key={index}
               style={{
-                x: scrollYProgress.to([0, 1], [direction, "0px"]),
+                x: translateX,
                 opacity: globalOpacity,
               }}
               className={`relative w-full md:w-1/2 ${
