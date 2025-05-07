@@ -26,56 +26,61 @@ export default function Hero() {
     <>
       <BackgroundAnimation />
       <div ref={heroRef} className='flex flex-col  items-center justify-center px-6 py-30 gap-20 sm:px-10'>
-          <div className='flex flex-col items-center justify-center h-full w-full gap-5 sm:gap-10'>
-              <motion.h1 
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, ease: 'easeInOut' }}
+         
+          <div className="flex flex-col items-center justify-center h-full w-full gap-5 sm:gap-10">
+            {/* Optimized heading with quicker animation */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
               viewport={{ once: true }}
-              className='text-3xl md:text-4xl xl:text-5xl lg:w-4xl text-center  font-mono font-bold '>
-                  <span className='text-cyan-500'>MuhidTech</span> | Web Development & SEO-Optimized Websites
-              </motion.h1>
-              <div className='text-sm sm:text-center flex gap-3 xl:w-5xl flex-col pb-10 font-mono font-normal text-gray-300'>
-                  <motion.p
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, ease: 'easeInOut' }}
-                  viewport={{ once: true }}
-                  >Welcome to MuhidTech, where we create responsive, high-performance websites and applications using technologies like React.js, Next.js, Django, and TailwindCSS. We specialize in eCommerce platforms, landing pages, and interactive web applications that drive results.</motion.p>
+              className="text-3xl md:text-4xl xl:text-5xl lg:w-4xl text-center font-mono font-bold"
+            >
+              <span className="text-cyan-500">MuhidTech</span> | Web Development & SEO-Optimized Websites
+            </motion.h1>
 
-                  <motion.p
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.2 }}
-                  viewport={{ once: true }}
-                  >Our focus is on clean code, great user experiences, and SEO optimization to help your site rank and attract organic traffic. Let us help you build a digital presence that stands out!</motion.p>
+            <motion.div 
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            viewport={{ once: true }}
+            className="text-sm sm:text-center flex gap-3 xl:w-5xl flex-col pb-10 font-mono font-normal text-gray-300">
+              {/* LCP paragraph with no animation for faster paint */}
+              <p>
+                Welcome to MuhidTech, where we create responsive, high-performance websites and applications using technologies like React.js, Next.js, Django, and TailwindCSS. We specialize in eCommerce platforms, landing pages, and interactive web applications that drive results.
+              </p>
 
-                  <motion.p
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.4 }}
-                  viewport={{ once: true }}
-                  >Expertise: Web Development, SEO, Full-Stack Development, UI/UX Design</motion.p>
-                  <motion.p
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.6 }}
-                  viewport={{ once: true }}
-                  >Tech Stack: HTML, CSS, JavaScript, Typescript, React, Next.js, Django, TailwindCSS</motion.p>
+              {/* Remaining paragraphs with staggered animation */}
+              <p
+              >
+                Our focus is on clean code, great user experiences, and SEO optimization to help your site rank and attract organic traffic. Let us help you build a digital presence that stands out!
+              </p>
 
-                  <motion.p
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, ease: 'easeInOut', delay: 0.8 }}
-                  viewport={{ once: true }}
-                  >Contact us today to get started on your next project!</motion.p>
-              </div>
-              <button>
-                  <Link href="/contact" className="flex items-center text-white bg-cyan-500 hover:bg-cyan-700 font-bold py-2 px-4 rounded-xl">
-                      <FaTelegramPlane className="mr-2" /> {/* Icon with some margin */}
-                      Let&lsquo;s Talk
-                  </Link>
-              </button>
+              <p
+              >
+                Expertise: Web Development, SEO, Full-Stack Development, UI/UX Design
+              </p>
+
+              <p
+              >
+                Tech Stack: HTML, CSS, JavaScript, Typescript, React, Next.js, Django, TailwindCSS
+              </p>
+
+              <p
+              >
+                Contact us today to get started on your next project!
+              </p>
+            </motion.div>
+
+            <button>
+              <Link
+                href="/contact"
+                className="flex items-center text-white bg-cyan-500 hover:bg-cyan-700 font-bold py-2 px-4 rounded-xl"
+              >
+                <FaTelegramPlane className="mr-2" />
+                Let&rsquo;s Talk
+              </Link>
+            </button>
           </div>
 
           <motion.div 
@@ -86,13 +91,19 @@ export default function Hero() {
           >
 
             {/* Background Animation */}
-            <motion.img 
-              whileInView={{ transform: imghover.transform }}
-              transition={{ duration: 0.1, ease: 'easeInOut' }}
-              src="/logo1.jpeg"
-              alt="MuhidTech"
-              className='w-full h-auto max-w-xs sm:max-w-md lg:max-w-lg rounded-2xl bg-cover '
-            />
+            <motion.div
+            whileInView={{ transform: imghover.transform }}
+            transition={{ duration: 0.1, ease: 'easeInOut' }}
+            >
+              <Image 
+                src="/logo1.jpeg"
+                alt="MuhidTech"
+                width={500}
+                height={500}
+                priority
+                className='w-full h-auto max-w-xs sm:max-w-md lg:max-w-lg rounded-2xl bg-cover '
+              />
+            </motion.div>
 
 
             {/* Top Right Feature */}

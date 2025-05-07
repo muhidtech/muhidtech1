@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
+import Link from "next/link";
 
 const WhatsAppCTA = () => {
   return (
@@ -11,7 +12,7 @@ const WhatsAppCTA = () => {
       transition={{ duration: 0.8 }}
       className="my-16 flex justify-center"
     >
-      <a
+      <Link
         href="https://wa.me/233509954835?text=Hello%20MuhidTech!%20I%20would%20like%20to%20know%20more%20about%20your%20services."
         target="_blank"
         rel="noopener noreferrer"
@@ -19,7 +20,7 @@ const WhatsAppCTA = () => {
       >
         <FaWhatsapp size={24} className="mr-3" />
         <span className="font-semibold text-lg">Chat with us on WhatsApp</span>
-      </a>
+      </Link>
     </motion.section>
   );
 };

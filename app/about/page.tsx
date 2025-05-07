@@ -11,7 +11,6 @@ import CallToAction from './components/CTA'
 import { Metadata } from 'next'
 import DownloadCV from '../projects/components/DownloadCV'
 
-
 export const metadata: Metadata = {
     title: "About Us",
     description: "Learn more about us and our mission to provide the best services to our clients.",
@@ -28,7 +27,6 @@ export const metadata: Metadata = {
       "Timeline",
       "About MuhidTech",
       "MuhidTech",
-      "MuhidTech About Us",
     ]
   }
   

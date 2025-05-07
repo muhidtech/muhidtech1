@@ -10,6 +10,9 @@ import FaqSection from '../components/FaqSection'
 import DownloadCV from '../projects/components/DownloadCV'
 
 
+
+
+
 export const metadata: Metadata = {
   title: "Contact",
   description: "Contact me for any inquiries or collaborations. I'm here to help you with your projects and ideas.",

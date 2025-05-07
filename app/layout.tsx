@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://muhidtech.vercel.app"),
   title: {
     default: "MuhidTech | Web Developer",
     template: "%s - MuhidTech | Web Developer"
@@ -61,7 +64,6 @@ export const metadata: Metadata = {
       name: "MuhidTech",
       url: "https://muhidtech.vercel.app",
     },
-
   ],
   creator: "MuhidTech",
   publisher: "MuhidTech",
@@ -84,7 +86,6 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image"
   }
-
 };
 
 export default function RootLayout({
@@ -101,6 +102,11 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#06b6d4" />
 
+        {/* Preload Fonts */}
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" as="style" />
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Geist_Mono:wght@400;500&display=swap" as="style" />
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" as="style" />
+
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -108,10 +114,27 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
         <link rel="icon" href="/favicon.ico" />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Muhidtech",
+              "url": "https://muhidtech.vercel.app",
+              "logo": "https://muhidtech.vercel.app/icons/android-chrome-512x512.png",
+              "sameAs": [
+                "https://github.com/muhidtech",
+                "https://linkedin.com/company/muhidtech"
+              ]
+            }
+          `}
+        </script>
       </head>
 
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable}  ${inter} antialiased`}
       >
         {children}
       </body>

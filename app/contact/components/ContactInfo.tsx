@@ -4,6 +4,7 @@ import React from "react";
 import { FaGithub, FaTwitter, FaLinkedin, FaInstagram, FaFacebook, FaTiktok, FaYoutube } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import WhatsAppCTA from "./Whats";
+import Link from "next/link";
 
 const ContactInfoSocials = () => {
   return (
@@ -23,7 +24,7 @@ const ContactInfoSocials = () => {
 
         {/* Social Links */}
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-6 mt-8 md:mt-0">
-          <a
+          <Link
             href="https://github.com/muhidtech"
             target="_blank"
             rel="noopener noreferrer"
@@ -31,8 +32,8 @@ const ContactInfoSocials = () => {
             aria-label="GitHub"
           >
             <FaGithub size={24} />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://x.com/MuhidTech911"
             target="_blank"
             rel="noopener noreferrer"
@@ -40,8 +41,8 @@ const ContactInfoSocials = () => {
             aria-label="Twitter"
           >
             <FaTwitter size={24} />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.linkedin.com/in/mohammed-muhideen-abdul-kadir-19aa99357"
             target="_blank"
             rel="noopener noreferrer"
@@ -49,8 +50,8 @@ const ContactInfoSocials = () => {
             aria-label="LinkedIn"
           >
             <FaLinkedin size={24} />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://web.facebook.com/profile.php?id=61575545686798"
             target="_blank"
             rel="noopener noreferrer"
@@ -58,8 +59,8 @@ const ContactInfoSocials = () => {
             aria-label="Facebook"
           >
             <FaFacebook size={24} />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.instagram.com/muhidtech__"
             target="_blank"
             rel="noopener noreferrer"
@@ -67,8 +68,8 @@ const ContactInfoSocials = () => {
             aria-label="Instagram"
           >
             <FaInstagram size={24} />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.tiktok.com/@muhidtech"
             target="_blank"
             rel="noopener noreferrer"
@@ -76,8 +77,8 @@ const ContactInfoSocials = () => {
             aria-label="Tiktok"
           >
             <FaTiktok size={24} />
-          </a>
-          <a
+          </Link>
+          <Link
             href="https://www.youtube.com/@MuhidTech"
             target="_blank"
             rel="noopener noreferrer"
@@ -85,7 +86,7 @@ const ContactInfoSocials = () => {
             aria-label="YouTube"
           >
             <FaYoutube size={24} />
-          </a>
+          </Link>
         </div>
       </motion.div>
 

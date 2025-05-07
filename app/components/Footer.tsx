@@ -45,30 +45,30 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold text-cyan-300 mb-3">Connect</h3>
           <div className="grid grid-cols-4 gap-4 text-2xl text-white/80">
-            <a href="mailto:hello@muhidtech.com" aria-label="Email">
+            <Link href="mailto:hello@muhidtech.com" aria-label="Email">
               <FaEnvelope className="hover:text-cyan-400 transition" />
-            </a>
-            <a href="https://github.com/muhidtech" target="_blank" aria-label="GitHub">
+            </Link>
+            <Link href="https://github.com/muhidtech" target="_blank" aria-label="GitHub">
               <FaGithub className="hover:text-cyan-400 transition" />
-            </a>
-            <a href="https://x.com/MuhidTech911" target="_blank" aria-label="Twitter">
+            </Link>
+            <Link href="https://x.com/MuhidTech911" target="_blank" aria-label="Twitter">
               <FaTwitter className="hover:text-cyan-400 transition" />
-            </a>
-            <a href="https://www.linkedin.com/in/mohammed-muhideen-abdul-kadir-19aa99357" target="_blank" aria-label="LinkedIn">
+            </Link>
+            <Link href="https://www.linkedin.com/in/mohammed-muhideen-abdul-kadir-19aa99357" target="_blank" aria-label="LinkedIn">
               <FaLinkedin className="hover:text-cyan-400 transition" />
-            </a>
-            <a href="https://www.tiktok.com/@muhidtech">
+            </Link>
+            <Link href="https://www.tiktok.com/@muhidtech">
               <FaTiktok className="hover:text-cyan-400 transition" />
-            </a>
-            <a href="https://www.instagram.com/muhidtech__/" target="_blank" aria-label="Instagram">
+            </Link>
+            <Link href="https://www.instagram.com/muhidtech__/" target="_blank" aria-label="Instagram">
               <FaInstagram className="hover:text-cyan-400 transition" />
-            </a>
-            <a href="https://web.facebook.com/profile.php?id=61575545686798">
+            </Link>
+            <Link href="https://web.facebook.com/profile.php?id=61575545686798">
               <FaFacebook className="hover:text-cyan-400 transition" />
-            </a>
-            <a href="https://www.youtube.com/@MuhidTech" target="_blank" aria-label="YouTube">
+            </Link>
+            <Link href="https://www.youtube.com/@MuhidTech" target="_blank" aria-label="YouTube">
               <FaYoutube className="hover:text-cyan-400 transition" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
