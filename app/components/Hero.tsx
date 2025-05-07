@@ -99,7 +99,7 @@ export default function Hero() {
             transition={{ duration: 0.1, ease: 'easeInOut' }}
             >
               <Image 
-                src="/logo1.jpeg"
+                src="/logo2.png"
                 alt="MuhidTech"
                 width={500}
                 height={500}
