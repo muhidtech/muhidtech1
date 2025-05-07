@@ -68,14 +68,14 @@ export default function Timeline() {
       <div className="relative z-10 max-w-5xl mx-auto space-y-40 md:border-x border-cyan-500">
         {timeline.map((item, index) => {
           const isLeft = index % 2 === 0;
-          const direction = isLeft ? -50 : 50;
-          const xTransform = useTransform(scrollYProgress, [0, 1], [direction, 0]);
+          const direction = isLeft ? "-50px" : "50px";
+          const translateX = useTransform(scrollYProgress, [0, 1], [isLeft ? -50 : 50, 0]);
 
           return (
             <motion.div
               key={index}
               style={{
-                x: xTransform,
+                x: scrollYProgress.to([0, 1], [direction, "0px"]),
                 opacity: globalOpacity,
               }}
               className={`relative w-full md:w-1/2 ${
@@ -94,7 +94,11 @@ export default function Timeline() {
                   </motion.div>
                   <h3 className="text-xl font-bold">{item.title}</h3>
                 </div>
-                <p className="text-gray-500 font-bold text-xs">{item.date}</p>
+                <p
+                  className="text-gray-500 text-sm mb-2"
+                >
+                  {item.date}
+                </p>
                 <p className="text-gray-300 text-sm">{item.description}</p>
               </div>
             </motion.div>
