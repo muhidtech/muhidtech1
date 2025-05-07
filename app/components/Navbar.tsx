@@ -49,6 +49,7 @@ function BottomNav() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-label={link.label}
                 className={`relative flex flex-col items-center justify-center group`}
                 >
                 <motion.span

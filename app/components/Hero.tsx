@@ -77,6 +77,7 @@ export default function Hero() {
             <button>
               <Link
                 href="/contact"
+                aria-label='Contact MuhidTech'
                 className="flex items-center text-black/80 bg-cyan-500 hover:bg-cyan-700 font-bold py-2 px-4 rounded-xl"
               >
                 <FaTelegramPlane className="mr-2" />
