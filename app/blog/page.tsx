@@ -17,7 +17,7 @@ export default function Page() { // Renamed to "Page"
 
       <button
         onClick={() => route.back()}
-        className="cursor-pointer top-20 left-1/2 py-3 px-2 bg-cyan-500 rounded-lg"
+        className="cursor-pointer top-20 left-1/2 py-3 px-3 bg-cyan-500 rounded-lg"
       >
         {text}
       </button>
