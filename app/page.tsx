@@ -8,6 +8,8 @@ import FaqSection from './components/FaqSection'
 import Footer from './components/Footer'
 
 
+
+
 function page() {
   return (
     <div className="md:p-10 p-5">
