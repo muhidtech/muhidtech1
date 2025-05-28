@@ -29,7 +29,7 @@ export default function BlogPostPage() {
         const data = await fetchPosts();
         setPosts(data);
       } catch (e) {
-        setError("Failed to fetch posts.");
+        setError("Failed to fetch posts: " + (e instanceof Error ? e.message : String(e)));
       } finally {
         setLoading(false);
       }
