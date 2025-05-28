@@ -2,10 +2,11 @@
 import ProtectedRoute from "@/app/hooks/ProtectedRoute";
 import DashboardPage from "./components/Dashboard";
 
-export default function page() {
+
+export default function Page() {
   return (
     <ProtectedRoute>
-        <DashboardPage />
+      <DashboardPage />
     </ProtectedRoute>
   );
 }
