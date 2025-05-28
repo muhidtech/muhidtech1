@@ -1,6 +1,6 @@
-'use client'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
+'use client';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function AboutHero() {
   return (
@@ -13,7 +13,7 @@ export default function AboutHero() {
         animate={{ x: 100, y: 50 }}
         transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
       />
-      <motion.div
+      <motion.div 
         className="absolute w-[500px] h-[500px] bg-purple-500 rounded-full opacity-20 blur-3xl"
         initial={{ x: 300, y: 200 }}
         animate={{ x: -100, y: 100 }}
@@ -30,18 +30,21 @@ export default function AboutHero() {
         transition={{ duration: 0.6, ease: 'easeInOut' }}
         className="relative z-10 max-w-4xl text-center text-white space-y-6"
       >
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-          Meet the Team Behind <span className="text-cyan-500">MuhidTech</span>
+        <h1 className="text-5xl sm:text-7xl font-bold tracking-tight leading-tight">
+          Meet the Team Behind <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">MuhidTech</span>
         </h1>
-        <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto">
-          At MuhidTech, we&lsquo;re passionate builders, designers, and engineers who believe in transforming ideas into high-performance digital experiences. Learn more about our journey, our values, and the tech that powers our work.
+        <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto">
+          We&lsquo;re a collective of builders, designers, and engineers creating impactful digital experiences.
         </p>
         <div className="pt-4">
-          <Link href="/contact" className="inline-block px-6 py-3 bg-cyan-500 text-white font-semibold rounded-lg hover:bg-cyan-600 transition-all duration-300">
+          <Link
+            href="/contact"
+            className="px-6 py-3 bg-cyan-500 text-white font-semibold rounded-full hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
+          >
             Get in Touch
           </Link>
         </div>
       </motion.div>
     </section>
-  )
+  );
 }

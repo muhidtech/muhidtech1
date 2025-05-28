@@ -2,19 +2,11 @@
 
 import Link from 'next/link'
 import React, { useRef } from 'react'
-import { FaTelegramPlane } from 'react-icons/fa'; // Import the icon you want to use
 import { motion } from 'framer-motion'
 import Image from 'next/image';
 import useHoverEffect from './HoverEffect'
 import BackgroundAnimation from './BackgroundAnimation'
-
-
-const Logos = [
-  {logo: 'logos/dribbble-4.svg', name: "Dribbble"},
-  {logo: 'logos/netlify.svg', name: "Netlify"},
-  {logo: 'logos/vercel.svg', name: "Vercel"},
-  {logo: 'logos/notion-2.svg', name: "Notion"},
-]
+import TrustedBy from './TrustedBy'
 
 
 export default function Hero() {
@@ -31,59 +23,49 @@ export default function Hero() {
          
           <div className="flex flex-col items-center justify-center h-full w-full gap-5 sm:gap-10">
             {/* Optimized heading with quicker animation */}
+
             <motion.h1
+              className="text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tighter text-center max-w-4xl"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl xl:text-5xl lg:w-4xl text-center font-mono font-bold"
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              <span className="text-cyan-500">MuhidTech</span> | Web Development & SEO-Optimized Websites
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                MuhidTech
+              </span>
+              <br />
+              <span className="text-white">Creative Development Studio</span>
             </motion.h1>
 
-            <motion.div 
-            initial={{ opacity: 0, x: -100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            viewport={{ once: true }}
-            className="text-sm sm:text-center flex gap-3 xl:w-5xl flex-col pb-10 font-mono font-normal text-gray-300">
-              {/* LCP paragraph with no animation for faster paint */}
-              <p>
-                Welcome to MuhidTech, where we create responsive, high-performance websites and applications using technologies like React.js, Next.js, Django, and TailwindCSS. We specialize in eCommerce platforms, landing pages, and interactive web applications that drive results.
-              </p>
+            <motion.p
+              className="text-sm md:text-base lg:text-lg text-white/70 max-w-2xl text-center tracking-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              We design fast, responsive websites and apps using React, Next.js, Django & Tailwind — optimized for SEO, speed, and growth.
+            </motion.p>
 
-              {/* Remaining paragraphs with staggered animation */}
-              <p
-              >
-                Our focus is on clean code, great user experiences, and SEO optimization to help your site rank and attract organic traffic. Let us help you build a digital presence that stands out!
-              </p>
-
-              <p
-              >
-                Expertise: Web Development, SEO, Full-Stack Development, UI/UX Design
-              </p>
-
-              <p
-              >
-                Tech Stack: HTML, CSS, JavaScript, Typescript, React, Next.js, Django, TailwindCSS
-              </p>
-
-              <p
-              >
-                Contact us today to get started on your next project!
-              </p>
-            </motion.div>
-
-            <button>
+            <motion.div
+              className="mt-6 flex flex-wrap items-center justify-center gap-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               <Link
                 href="/contact"
-                aria-label='Contact MuhidTech'
-                className="flex items-center text-black/80 bg-cyan-500 hover:bg-cyan-700 font-bold py-2 px-4 rounded-xl"
+                className="px-6 py-3 bg-cyan-500 text-white font-semibold rounded-full hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
               >
-                <FaTelegramPlane className="mr-2" />
-                Let&rsquo;s Talk
+                Let’s Build Together
               </Link>
-            </button>
+              <Link
+                href="/projects"
+                className="px-6 py-3 border border-white text-white font-semibold rounded-full hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-white transition"
+              >
+                View Portfolio
+              </Link>
+            </motion.div>
+
           </div>
 
           <motion.div 
@@ -149,30 +131,11 @@ export default function Hero() {
           </motion.div>
 
 
-          <p className='text-sm text-center flex gap-3 lg:w-5xl flex-col pb-10 font-mono font-normal text-gray-300'>
+          <p className='text-sm text-center flex gap-3 lg:w-5xl flex-col pb-5 font-mono font-normal text-gray-300'>
               Helping you build a digital presence that stands out! <br />
           </p>
 
-          <div className='grid grid-cols-2 md:grid-cols-4 w-full md:px-30 items-center justify-center gap-5'>
-            {Logos.map((item, index) => (
-              <motion.div 
-              initial={{ opacity: 0, y: -100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: 'easeInOut', delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className='flex flex-col items-center justify-center gap-2' key={index}>
-                <Image
-                  key={index}
-                  src={item.logo}
-                  width={70}
-                  height={70}
-                  alt={`Logo ${index + 1}`}
-                  className={`transition-transform duration-300 transform hover:scale-110`}
-                  />
-                <p className='text-xs sm:text-sm text-center font-mono font-semibold text-gray-300'>{item.name}</p>
-              </motion.div>
-            ))}
-          </div>
+          <TrustedBy />
       </div>
 
     </>

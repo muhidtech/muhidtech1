@@ -41,6 +41,7 @@ export default function Timeline() {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
+          viewport={{once: true}}
           className="text-3xl md:text-5xl font-bold text-center font-mono text-cyan-500 z-10 relative"
         >
           Our Journey So Far
@@ -49,6 +50,7 @@ export default function Timeline() {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
+          viewport={{once: true}}
           className="text-gray-300 text-sm text-center max-w-2xl mx-auto z-10 relative"
         >
           From our inception to our latest projects, here&apos;s a glimpse into our journey and milestones.

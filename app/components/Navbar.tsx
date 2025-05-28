@@ -38,7 +38,7 @@ function BottomNav() {
     className="fixed bottom-5 left-0 w-full z-50 flex items-center justify-center  px-5">
       <div className="px-7 py-4  flex md:gap-10 gap-6 bg-black/20 backdrop-blur-2xl rounded-full">
         {navLinks.map((link, i) => {
-          const isActive = pathname === link.href
+          const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`)
           return (
             <motion.div
             initial={{ opacity: 0 }}

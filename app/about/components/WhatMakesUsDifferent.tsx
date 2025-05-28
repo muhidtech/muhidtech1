@@ -39,6 +39,7 @@ export default function WhatMakesUsDifferent() {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
+        viewport={{once: true}}
         className="relative z-10 max-w-6xl mx-auto text-center mb-16"
       >
         <h2 className="text-4xl font-bold text-cyan-400">What Makes Us Different</h2>
@@ -54,6 +55,7 @@ export default function WhatMakesUsDifferent() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 + index * 0.1, ease: 'easeInOut' }}
+            viewport={{once: true}}
             className="bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/10 shadow-lg hover:shadow-cyan-500/30 transition duration-300 group"
           >
             <div className="mb-4">{feature.icon}</div>

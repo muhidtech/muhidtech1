@@ -17,7 +17,7 @@ export default function TimelineItem({ icon, title, date, description, isLeft }:
       offset: ["start end", "end start"],
     });
   
-    const x = useTransform(scrollYProgress, [0, 1], [isLeft ? "-100%" : "100%", "0%"]);
+    const x = useTransform(scrollYProgress, [0, 1], [isLeft ? "-40%" : "40%", "0%"]);
     const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
   
     return (

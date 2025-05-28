@@ -9,12 +9,12 @@ export default function ContactHero() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
-        className="text-center max-w-3xl z-10"
+        className="relative z-10  max-w-4xl text-center text-white space-y-6"
       >
-        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+        <h1 className="text-5xl text-cyan-400 sm:text-7xl font-bold tracking-tight leading-tight">
           Le&lsquo;s Talk About Your Next Big Thing
         </h1>
-        <p className="text-gray-300 text-base sm:text-lg">
+        <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto">
           Have an idea, project, or question? Drop a message and we&lsquo;ll connect as soon as possible.
         </p>
       </motion.div>

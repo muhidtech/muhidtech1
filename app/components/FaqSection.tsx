@@ -61,11 +61,13 @@ export default function FaqSection() {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
+      viewport={{ once: true }}
       className="w-full max-w-6xl backdrop-blur-2xl bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-10 shadow-lg">
         <motion.h2 
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
+        viewport={{ once: true }}
         className="text-3xl sm:text-4xl font-bold text-center mb-8 text-cyan-400">
           Frequently Asked Questions
         </motion.h2>
@@ -75,6 +77,7 @@ export default function FaqSection() {
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
+        viewport={{ once: true }}
         className="mb-10 flex justify-center">
           <input
             type="text"
@@ -94,6 +97,7 @@ export default function FaqSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut", delay: idx * 0.1 }}
                 whileHover={{ scale: 1.02 }}
+                viewport={{ once: true }}
                 key={idx}
                 className="p-5 rounded-xl bg-white/10 border border-white/20 hover:border-cyan-500 transition shadow-md"
               >

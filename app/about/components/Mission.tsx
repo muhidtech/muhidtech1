@@ -27,6 +27,7 @@ export default function Mission() {
         initial={{ opacity: 0, y: 50 }} 
         whileInView={{ opacity: 1, y: 0 }} 
         transition={{ duration: 0.6 }}
+        viewport={{once: true}}
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold text-cyan-400">Our Mission & Core Values</h2>
@@ -42,6 +43,7 @@ export default function Mission() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: idx * 0.2 }}
+            viewport={{once: true}}
             className="p-6 bg-white/10 border border-white/20 backdrop-blur-xl rounded-xl shadow-lg hover:shadow-xl"
           >
             <val.icon className="text-4xl text-cyan-500 mb-4" />

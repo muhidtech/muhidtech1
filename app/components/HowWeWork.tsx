@@ -1,94 +1,200 @@
-"use client"
-import React from "react";
-import ParallaxSection from "./ParallaxSection";
-import { motion } from 'framer-motion';
+'use client';
 
+import { useEffect, useRef } from 'react';
+import Lenis from 'lenis';
+import { useScroll, useTransform, motion } from 'framer-motion';
+import Image from 'next/image';
 
+export default function Home() {
+  useEffect(() => {
+    const lenis = new Lenis();
 
-const workSteps = [
-  {
-    title: "Research & Planning",
-    description: "We analyze your business needs and craft a solid plan for execution.",
-    image: "/images/one.jpg",
-  },
-  {
-    title: "Design & Prototyping",
-    description: "Our team creates sleek, user-focused designs and interactive wireframes.",
-    image: "/images/two.jpg",
-  },
-  {
-    title: "Development",
-    description: "Using modern frameworks, we bring your idea to life with clean code.",
-    image: "/images/three.jpg",
-  },
-  {
-    title: "Testing & Optimization",
-    description: "We test and refine every detail for performance, responsiveness, and SEO.",
-    image: "/images/four.jpg",
-  },
-  {
-    title: "Launch & SEO Growth",
-    description: "We launch your site and continue supporting growth with strong SEO strategies.",
-    image: "/images/five.jpg",
-  },
-];
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
-export default function HowWeWork() {
-    return (
-      <div className="px-5 pb-30">
-        {/* Intro Section */}
-        <div className="text-center py-20 md:px-6 max-w-4xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl sm:text-5xl font-bold text-cyan-500 mb-4"
-          >
-            How We Work
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-300 text-lg"
-          >
-            Our development process is focused on performance, design, and SEO — built to scale and convert.
-          </motion.p>
-        </div>
-  
-        {/* Parallax Sections */}
-        <div className="w-full sm:px-10 lg:px-20 rounded-3xl overflow-hidden">
-            {workSteps.map((step, index) => (
-                <ParallaxSection key={index} {...step} />
-            ))}
-        </div>
-  
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-cyan-600 via-cyan-500 to-cyan-600 py-20 text-center rounded-3xl mt-10 px-6 mx-auto">
-          <motion.h3
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl sm:text-4xl font-bold mb-4 text-white"
-          >
-            Ready to Start Your Project?
-          </motion.h3>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-white/90 text-lg mb-6"
-          >
-            Let&lsquo;s build something powerful and scalable together. Contact us today to get started.
-          </motion.p>
-          <motion.a
-            href="/contact"
-            whileHover={{ scale: 1.05 }}
-            className="inline-block bg-black text-white font-semibold px-6 py-3 rounded-lg hover:bg-gray-800 transition"
-          >
-            Let&lsquo;s Talk
-          </motion.a>
-        </div>
+    requestAnimationFrame(raf);
+  }, []);
+
+  return (
+    <main className="w-full mb-10">
+      <div className="text-center py-20 md:px-6 max-w-4xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-5xl font-bold text-cyan-500 mb-4"
+        >
+          Our Process
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-gray-300 text-lg"
+        >
+          A proven strategy from idea to execution — crafted for performance, clarity, and growth.
+        </motion.p>
       </div>
-    );
-  }
+
+      <Intro />
+      <Design />
+      <Build />
+      <Refine />
+      <ExtraSection
+        title="Launch & Scale"
+        description="We deploy your product and help it grow with smart SEO and performance enhancements."
+        image="/images/five.jpg"
+      />
+    </main>
+  );
+}
+
+// ─── Step 1: Discovery ────────────────────────────────
+export function Intro() {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0vh', '150vh']);
+  const x = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+
+  return (
+    <div className='h-screen overflow-hidden w-full relative' ref={container}>
+      <motion.div style={{ y }} className='w-full h-full relative'>
+        <Image
+          src='/images/one.jpg'
+          fill
+          alt='Discovery'
+          style={{ objectFit: 'cover' }}
+          className='absolute inset-0 !object-cover !w-full !h-full z-0'
+          priority
+        />
+        <div className='absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10 opacity-100'>
+          <motion.h1 className='text-4xl md:text-7xl font-bold text-white' style={{ opacity: 1, x }}>
+            Discovery & Strategy
+          </motion.h1>
+          <motion.p className='text-lg md:text-2xl text-white/80 mt-6' style={{ opacity: 1, x }}>
+            We uncover your goals, audience, and pain points to form a bulletproof plan.
+          </motion.p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── Step 2: Design ────────────────────────────────
+export function Design() {
+  return (
+    <div className='relative flex justify-center items-center h-screen w-full bg-white/20 backdrop-blur-2xl'>
+      <Image
+        src='/images/two.jpeg'
+        fill
+        alt="Design"
+        style={{ objectFit: 'cover' }}
+        className='absolute inset-0 !object-cover !w-full !h-full z-0'
+        priority
+      />
+      <div className='text-center px-4 z-10'>
+        <h1 className='text-4xl md:text-7xl font-bold text-white'>UI/UX Design</h1>
+        <p className='text-lg md:text-2xl text-white/80 mt-10'>
+          We turn strategy into stunning, user-centered design that drives engagement.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 3: Development ────────────────────────────────
+export function Build() {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start end', 'start start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+
+  return (
+    <div ref={container} className='relative h-screen w-full overflow-hidden'>
+      <motion.div style={{ y }} className='w-full h-full relative'>
+        <Image
+          src='/images/three.jpg'
+          fill
+          alt='Build'
+          style={{ objectFit: 'cover' }}
+          className='absolute inset-0 !object-cover !w-full !h-full z-0'
+          priority
+        />
+        <div className='absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10'>
+          <motion.h1 className='text-4xl md:text-7xl font-bold text-white' style={{ opacity: scrollYProgress }}>
+            Full-Stack Development
+          </motion.h1>
+          <motion.p className='text-lg md:text-2xl text-white/80 mt-6' style={{ opacity: scrollYProgress }}>
+            Clean, scalable code built with modern frameworks tailored to your goals.
+          </motion.p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── Step 4: QA & Optimization ────────────────────────────────
+export function Refine() {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0vh', '150vh']);
+  const x = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+
+  return (
+    <div className='h-screen overflow-hidden w-full relative' ref={container}>
+      <motion.div style={{ y }} className='w-full h-full relative'>
+        <Image
+          src='/images/four.jpg'
+          fill
+          alt='Refine'
+          style={{ objectFit: 'cover' }}
+          className='absolute inset-0 !object-cover !w-full !h-full z-0'
+          priority
+        />
+        <div className='absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10 opacity-100'>
+          <motion.h1 className='text-4xl md:text-7xl font-bold text-white' style={{ opacity: 1, x }}>
+            QA & Optimization
+          </motion.h1>
+          <motion.p className='text-lg md:text-2xl text-white/80 mt-6' style={{ opacity: 1, x }}>
+            We rigorously test and optimize for performance, accessibility, and SEO.
+          </motion.p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── Step 5: Launch ────────────────────────────────
+function ExtraSection({ title, description, image }: { title: string; description: string; image: string }) {
+  return (
+    <div className='relative flex justify-center items-center h-screen w-full bg-black'>
+      <Image
+        src={image}
+        fill
+        alt={title}
+        style={{ objectFit: 'cover' }}
+        className='absolute inset-0 !object-cover !w-full !h-full z-0'
+        priority
+      />
+      <div className='text-center px-4 z-10'>
+        <h1 className='text-4xl md:text-7xl font-bold text-white'>{title}</h1>
+        <p className='text-lg md:text-2xl text-white/80 mt-10'>{description}</p>
+      </div>
+    </div>
+  );
+}

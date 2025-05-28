@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+/* @plugin "@tailwindcss/aspect-ratio"; */
+
+
 
 @layer base {
   html {
@@ -9,4 +13,23 @@
     /* @apply overflow-x-hidden bg-gray-900 dark:text-gray-200 bg-gray-300 text-gray-800; */
     @apply overflow-x-hidden  bg-gradient-to-r from-black/80 via-gray-800 to-indigo-700 text-gray-200;
   }
+}
+
+
+.prose-invert h1,
+.prose-invert h2,
+.prose-invert h3 {
+  color: white;
+}
+
+.prose-invert a {
+  color: #22d3ee;
+  text-decoration: underline;
+}
+
+.prose-invert code {
+  background-color: #1f2937;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  color: #facc15;
 }
