@@ -3,11 +3,11 @@ import { Home, FileText, Folder, BarChart2, Settings } from "lucide-react";
 import Link from "next/link";
 
 const navItems = [
-  { href: "admin/dashboard", label: "Dashboard", icon: Home },
-  { href: "admin/blog", label: "Blogs", icon: FileText },
+  { href: "/dashboard", label: "Dashboard", icon: Home },
+  { href: "/blog", label: "Blogs", icon: FileText },
   { href: "admin/projects", label: "Projects", icon: Folder },
-  { href: "admin/analytics", label: "Analytics", icon: BarChart2 },
-  { href: "admin/settings", label: "Settings", icon: Settings },
+  { href: "/analytics", label: "Analytics", icon: BarChart2 },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 interface SidebarProps {

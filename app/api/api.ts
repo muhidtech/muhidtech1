@@ -97,10 +97,40 @@ export const createProject = async (projectData: any) => {
   });
 };
 
+// Update a project by ID (auth required)
+export const updateProject = async (projectId: string, projectData: any) => {
+  return authFetch(`/api/projects/${projectId}/`, {
+    method: 'PUT', // or 'PATCH' if partial update is preferred
+    body: JSON.stringify(projectData),
+  });
+};
+
+// Delete a project by ID (auth required)
+export const deleteProject = async (projectId: string) => {
+  return authFetch(`/api/projects/${projectId}/`, {
+    method: 'DELETE',
+  });
+};
+
 // Create a blog post (auth required)
 export const createPost = async (postData: any) => {
   return authFetch('/api/blog/posts/', {
     method: 'POST',
     body: JSON.stringify(postData),
+  });
+};
+
+// Update a blog post by ID (auth required)
+export const updatePost = async (postId: string, postData: any) => {
+  return authFetch(`/api/blog/posts/${postId}/`, {
+    method: 'PUT', // or 'PATCH' if partial update is preferred
+    body: JSON.stringify(postData),
+  });
+};
+
+// Delete a blog post by ID (auth required)
+export const deletePost = async (postId: string) => {
+  return authFetch(`/api/blog/posts/${postId}/`, {
+    method: 'DELETE',
   });
 };
