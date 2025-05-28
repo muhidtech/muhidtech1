@@ -1,0 +1,19 @@
+
+
+POST https://muhidtech.onrender.com/api/projects/
+Content-Type: application/json
+Authorization: Bearer <access-token>
+
+{
+  "title": "NovaCart - eCommerce Landing Page",
+  "description": "A blazing fast, conversion-focused eCommerce landing page.",
+  "technologies": "Next.js, TailwindCSS, Framer Motion, Typescript, SEO",
+  "github_link": null,
+  "live_link": "https://novacarts.netlify.app/",
+  "image": null,
+  "featured": true,
+  "category": "Web Development",
+  "status": "completed"
+}
+
+

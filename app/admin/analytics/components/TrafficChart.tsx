@@ -1,5 +1,5 @@
 "use client";
-
+import { fetchTrafficData } from "@/app/api/api";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -19,61 +19,55 @@ type VercelEvent = {
 };
 
 export default function TrafficChart() {
-    const [chartData, setChartData] = useState<{
-        labels: string[];
-        datasets: {
-            label: string;
-            data: number[];
-            fill: boolean;
-            borderColor: string;
-            backgroundColor: string;
-            tension: number;
-            pointRadius: number;
-            pointBackgroundColor: string;
-        }[];
-    } | null>(null);
+  const [chartData, setChartData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    const fetchTraffic = async () => {
-      const res = await fetch("/api/traffic");
-      const data = await res.json();
+  const loadTraffic = async () => {
+    const events = await fetchTrafficData();
 
-      if (data.error) return;
+    if (!events) {
+      setError("Failed to fetch traffic data");
+      return;
+    }
 
-      const countsPerDay: Record<string, number> = {};
+    const countsPerDay: Record<string, number> = {};
 
-      data.events.forEach((event: VercelEvent) => {
-        const date = new Date(event.timestamp).toLocaleDateString();
-        countsPerDay[date] = (countsPerDay[date] || 0) + 1;
-      });
+    events.forEach((event: { timestamp: string }) => {
+      const date = new Date(event.timestamp).toLocaleDateString();
+      countsPerDay[date] = (countsPerDay[date] || 0) + 1;
+    });
 
-      const labels = Object.keys(countsPerDay);
-      const values = Object.values(countsPerDay);
+    const sortedDates = Object.keys(countsPerDay).sort(
+      (a, b) => new Date(a).getTime() - new Date(b).getTime()
+    );
+    const values = sortedDates.map((date) => countsPerDay[date]);
 
-      setChartData({
-        labels,
-        datasets: [
-          {
-            label: "Page Views",
-            data: values,
-            fill: false,
-            borderColor: "rgba(6, 182, 212, 1)",
-            backgroundColor: "rgba(6, 182, 212, 0.5)",
-            tension: 0.4,
-            pointRadius: 4,
-            pointBackgroundColor: "rgba(6, 182, 212, 1)",
-          },
-        ],
-      });
-    };
+    setChartData({
+      labels: sortedDates,
+      datasets: [
+        {
+          label: "Page Views",
+          data: values,
+          fill: false,
+          borderColor: "rgba(6, 182, 212, 1)",
+          backgroundColor: "rgba(6, 182, 212, 0.5)",
+          tension: 0.4,
+          pointRadius: 4,
+          pointBackgroundColor: "rgba(6, 182, 212, 1)",
+        },
+      ],
+    });
+  };
 
-    fetchTraffic();
-  }, []);
+  loadTraffic();
+}, []);
 
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        labels: { color: "#38bdf8" }, // Tailwind cyan-400
+        labels: { color: "#38bdf8" },
       },
     },
     scales: {
@@ -92,7 +86,9 @@ export default function TrafficChart() {
       <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-3">
         Traffic Overview
       </h3>
-      {chartData ? <Line data={chartData} options={options} /> : <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      {!chartData && !error && <p>Loading...</p>}
+      {chartData && <Line data={chartData} options={options} />}
     </div>
   );
 }

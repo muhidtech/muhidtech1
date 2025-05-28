@@ -19,7 +19,9 @@ const LoginPage: React.FC = () => {
 
     try {
       await login({ username, password });
+      
       alert('Login successful!');
+      route.push('/admin/dashboard/')
       // navigate('/dashboard') if you're using react-router
     } catch (err) {
       if (err instanceof Error) {

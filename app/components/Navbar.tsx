@@ -35,7 +35,7 @@ function BottomNav() {
     initial={{ y: 80, opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     transition={{ duration: 0.8, ease: 'easeOut' }}
-    className="fixed bottom-5 left-0 w-full z-50 flex items-center justify-center  px-5">
+    className="fixed bottom-5 left-0 w-full z-50 flex items-center justify-center  px-5 text-white">
       <div className="px-7 py-4  flex md:gap-10 gap-6 bg-black/20 backdrop-blur-2xl rounded-full">
         {navLinks.map((link, i) => {
           const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`)

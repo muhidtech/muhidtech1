@@ -1,10 +1,12 @@
 import React from 'react'
+import ProtectedRoute from "@/app/hooks/ProtectedRoute";
+
 
 function page() {
   return (
-    <div>
-      
-    </div>
+    <ProtectedRoute>
+      <div></div>
+    </ProtectedRoute>
   )
 }
 

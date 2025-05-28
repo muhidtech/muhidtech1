@@ -11,7 +11,7 @@
 
   body {
     /* @apply overflow-x-hidden bg-gray-900 dark:text-gray-200 bg-gray-300 text-gray-800; */
-    @apply overflow-x-hidden  bg-gradient-to-r from-black/80 via-gray-800 to-indigo-700 text-gray-200;
+    @apply overflow-x-hidden  bg-gradient-to-r from-black/80 via-gray-800 to-indigo-700 text-white;
   }
 }
 

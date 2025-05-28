@@ -1,10 +1,15 @@
-// types/Project.ts
 export interface Project {
-  id?: string; // Optional for new projects
+  id?: number;
   title: string;
-  category: string;
-  image: string;
   description: string;
-  techStack: string[];
-  live_url: string;
+  technologies: string;
+  techStack?: string[];
+  github_link?: string | null;
+  live_link?: string | null;
+  image?: File | string | null
+  featured: boolean;
+  category: string;
+  status: "completed" | "in_progress";
+  created_at?: string;
+  owner?: number;
 }

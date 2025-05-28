@@ -1,64 +1,56 @@
-// components/dashboard/AnalyticsOverview.tsx
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchProjects, fetchPosts } from "@/app/api/api";
+import { fetchProjects, fetchPosts, fetchTrafficData } from "@/app/api/api";
 import TrafficChart from "./TrafficChart";
-import PieChart from "./PieChart"; // Add this import
-
+import PieChart from "./PieChart";
 
 export default function AnalyticsOverview() {
   const [postCount, setPostCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
   const [featuredPosts, setFeaturedPosts] = useState(0);
   const [featuredProjects, setFeaturedProjects] = useState(0);
-  const [views, setViews] = useState(0); // mock or real from Vercel
+  const [views, setViews] = useState(0); // real from backend
 
   useEffect(() => {
-  async function fetchData() {
-    const posts = await fetchPosts();
-    const projects = await fetchProjects();
+    async function fetchData() {
+      const posts = await fetchPosts();
+      const projects = await fetchProjects();
 
-    setPostCount(posts.length);
-    setProjectCount(projects.length);
-    setFeaturedPosts(posts.filter((p: { featured: boolean }) => p.featured).length);
-    setFeaturedProjects(projects.filter((p: { featured: boolean }) => p.featured).length);
+      setPostCount(posts.length);
+      setProjectCount(projects.length);
+      setFeaturedPosts(posts.filter((p: { featured: boolean }) => p.featured).length);
+      setFeaturedProjects(projects.filter((p: { featured: boolean }) => p.featured).length);
 
-    // Fetch real page views from Vercel analytics API
-    try {
-      const res = await fetch("/api/traffic");
-      const data = await res.json();
-
-      if (data.events) {
-        setViews(data.events.length);
+      // Fetch real traffic data from Django backend
+      const events = await fetchTrafficData();
+      if (events) {
+        setViews(events.length);
       } else {
         setViews(0);
       }
-    } catch {
-      setViews(0);
     }
-  }
 
-  fetchData();
-}, []);
+    fetchData();
+  }, []);
 
   return (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-    <Card title="Total Blog Posts" value={postCount} />
-    <Card title="Total Projects" value={projectCount} />
-    <Card title="Featured Posts" value={featuredPosts} />
-    <Card title="Featured Projects" value={featuredProjects} />
-    <Card title="Page Views" value={views} />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <Card title="Total Blog Posts" value={postCount} />
+      <Card title="Total Projects" value={projectCount} />
+      <Card title="Featured Posts" value={featuredPosts} />
+      <Card title="Featured Projects" value={featuredProjects} />
+      <Card title="Page Views" value={views} />
 
-    <div className="md:col-span-1 lg:col-span-1">
-      <PieChart postCount={postCount} projectCount={projectCount} />
-    </div>
+      <div className="md:col-span-1 lg:col-span-1">
+        <PieChart postCount={postCount} projectCount={projectCount} />
+      </div>
 
-    <div className="md:col-span-2 lg:col-span-2">
-      <TrafficChart />
+      <div className="md:col-span-2 lg:col-span-2">
+        <TrafficChart />
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 function Card({ title, value }: { title: string; value: number }) {

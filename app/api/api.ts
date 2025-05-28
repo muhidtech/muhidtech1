@@ -35,7 +35,7 @@ const getAccessToken = () => {
 const authFetch = async (endpoint: string, options: RequestInit = {}) => {
   const token = getAccessToken();
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    ...(options.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
     ...(options.headers as Record<string, string>),
   };
 
@@ -48,18 +48,21 @@ const authFetch = async (endpoint: string, options: RequestInit = {}) => {
     headers,
   });
 
-  // Try to parse JSON, but handle HTML error pages gracefully
-  let data;
   const text = await response.text();
+  let data;
   try {
     data = JSON.parse(text);
   } catch {
-    // If not JSON, return the raw text (likely an error page)
     throw new Error(`Unexpected response: ${text.slice(0, 100)}...`);
   }
 
   if (!response.ok) {
-    throw new Error(data.detail || 'Request failed');
+    console.error("API Error:", data);
+    throw new Error(
+      typeof data === 'object'
+        ? JSON.stringify(data)
+        : data.detail || 'Request failed'
+    );
   }
 
   return data;
@@ -94,17 +97,48 @@ export const fetchProjects = async () => {
 
 // Create a project (auth required)
 export const createProject = async (projectData: Project) => {
-  return authFetch('/api/projects/', {
-    method: 'POST',
-    body: JSON.stringify(projectData),
+  const formData = new FormData();
+
+  formData.append("title", projectData.title);
+  formData.append("description", projectData.description);
+  formData.append("technologies", projectData.technologies);
+  formData.append("category", projectData.category);
+  formData.append("status", projectData.status);
+  formData.append("featured", String(projectData.featured));
+  if (projectData.github_link) formData.append("github_link", projectData.github_link);
+  if (projectData.live_link) formData.append("live_link", projectData.live_link);
+  if (projectData.image instanceof File) {
+    formData.append("image", projectData.image);
+  }
+
+  return authFetch("/api/projects/", {
+    method: "POST",
+    body: formData,
+    headers: {}, // Don't set Content-Type manually
   });
 };
 
+
+
 // Update a project by ID (auth required)
 export const updateProject = async (projectId: string, projectData: Project) => {
+  const formData = new FormData();
+
+  formData.append("title", projectData.title);
+  formData.append("description", projectData.description);
+  formData.append("technologies", projectData.technologies);
+  formData.append("category", projectData.category);
+  formData.append("status", projectData.status);
+  formData.append("featured", String(projectData.featured));
+  if (projectData.github_link) formData.append("github_link", projectData.github_link);
+  if (projectData.live_link) formData.append("live_link", projectData.live_link);
+  if (projectData.image instanceof File) {
+    formData.append("image", projectData.image);
+  }
+  console.log("Submitting project payload:", formData);
   return authFetch(`/api/projects/${projectId}/`, {
-    method: 'PUT', // or 'PATCH' if partial update is preferred
-    body: JSON.stringify(projectData),
+    method: 'PATCH',
+    body: formData,
   });
 };
 
@@ -126,7 +160,7 @@ export const createPost = async (postData: BlogPost) => {
 // Update a blog post by ID (auth required)
 export const updatePost = async (postId: string, postData: BlogPost) => {
   return authFetch(`/api/blog/posts/${postId}/`, {
-    method: 'PUT', // or 'PATCH' if partial update is preferred
+    method: 'PATCH', // or 'PATCH' if partial update is preferred
     body: JSON.stringify(postData),
   });
 };
@@ -137,3 +171,25 @@ export const deletePost = async (postId: string) => {
     method: 'DELETE',
   });
 };
+
+
+export async function fetchTrafficData() {
+  try {
+    const res = await fetch("https://muhidtech.onrender.com/api/traffic/");
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch traffic data: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    if (!data.events) {
+      throw new Error("Invalid response format: missing events");
+    }
+
+    return data.events; // an array of { timestamp: string } or similar
+  } catch (error: any) {
+    console.error("Error fetching traffic data:", error.message);
+    return null;
+  }
+}

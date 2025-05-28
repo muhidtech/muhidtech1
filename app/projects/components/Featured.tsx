@@ -1,86 +1,49 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { Project } from "@/app/admin/projects/Project";
+import { fetchProjects } from "@/app/api/api";
 
-// Example project data (would normally come from JSON)
-const projectsData = [
-  {
-    id: 1,
-    title: "NovaCart - eCommerce Landing Page",
-    category: "Landing Page",
-    image: "/projects/novacart.png",
-    description: "A blazing fast, conversion-focused eCommerce landing page.",
-    techStack: ["Next.js", "TailwindCSS", "Framer Motion", "Typescript", "SEO"],
-    url: "https://novacarts.netlify.app/"
-  },
-  {
-    id: 2,
-    title: "MuhidTech - Portfolio",
-    category: "Portfolio",
-    image: "/projects/muhidtech.png",
-    description: "A sleek portfolio site to showcase creative work and case studies.",
-    techStack: ["Next.js", "TailwindCSS", "Typescript", "Framer Motion", "SEO"],
-    url: "https://muhidtech.vercel.app"
-  },
-  {
-    id: 3,
-    title: "eCompany - Company Portfolio Website",
-    category: "Portfolio",
-    image: "/projects/ecompany.png",
-    description: "A modern company portfolio website with a focus on user experience.",
-    techStack: ["Next.js", "TailwindCSS", "Typescript", "SEO"],
-    url: "https://ecompanys.netlify.app/"
-  },
-  {
-    id: 4,
-    title: "TaxPal - A clone Website",
-    category: "Website",
-    image: "/projects/TaxPal.png",
-    description: "A clone website for TaxPal, showcasing a clean and modern design.",
-    techStack: ["React.js", "TailwindCSS", "JavaScript"],
-    url: "https://ecompanys.netlify.app/"
-  },
-  
-  {
-    id: 5,
-    title: "EcoHaven - A fully functional eCommerce website",
-    category: "eCommerce",
-    image: "/projects/ecoHaven.png",
-    description: "A fully functional eCommerce website with a focus on sustainability.",
-    techStack: ["Next.js", "TailwindCSS", "Framer Motion", "Typescript", "Django", "Sqlite"],
-    url: "https://ecohaven.vercel.app/"
-  },
-  {
-    id: 6,
-    title: "Insure - Landing Page",
-    category: "Landing Page",
-    image: "/projects/insure.png",
-    description: "A landing page for an insurance company, designed to convert visitors into leads.",
-    techStack: ["Next.js", "TailwindCSS", "Framer Motion", "Typescript"],
-    url: "https://insure-landing-pagesa.netlify.app/"
-  },
-
-  
-
-];
-
-const categories = Array.from(
-  new Set(projectsData.map(project => project.category))
-);
 
 export default function FeaturedProjects() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const categories = Array.from(
+    new Set(projects.map(project => project.category))
+  );
+
+  
+    useEffect(() => {
+      const loadProjects = async () => {
+        try {
+          const data = await fetchProjects();
+          setProjects(data);
+        } catch (err) {
+          setError(
+            err && typeof err === "object" && "message" in err
+              ? (err as { message: string }).message
+              : "Failed to load projects"
+          );
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      loadProjects();
+    }, []);
 
   const filteredProjects =
     activeCategory === "All"
-      ? projectsData
-      : projectsData.filter(project => project.category === activeCategory);
+      ? projects
+      : projects.filter(project => project.category === activeCategory);
 
   return (
-    <section id="projects" className="py-20 px-5 md:px-10 lg:px-20 ">
+    <section id="projects" className="py-20 px-5 md:px-10 lg:px-20 text-white ">
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
         <p className="text-gray-400 text-lg">
@@ -123,34 +86,49 @@ export default function FeaturedProjects() {
               className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:scale-[1.02] transition overflow-hidden"
             >
               <div className="relative w-full h-48 mb-4 rounded-xl overflow-hidden">
-                <Image 
-                src={project.image} 
-                alt={project.title} 
-                fill 
-                loading="eager"
-                decoding="async"
-                priority
-                className="object-cover" />
+                {project.image ? (
+                  <div className="relative w-full h-48 mb-4 rounded-xl overflow-hidden">
+                    <Image 
+                    src={typeof project.image === "string" ? project.image : URL.createObjectURL(project.image)} 
+                    alt={project.title} 
+                    fill 
+                    loading="eager"
+                    decoding="async"
+                    priority
+                    className="object-cover" />
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center w-full h-full bg-gray-800 text-gray-500">
+                    No Image
+                  </div>
+                )}
               </div>
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
               <p className="text-gray-300 text-sm mb-3">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech, i) => (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {(project.technologies
+                  ? project.technologies.split(",").map((tech) => tech.trim())
+                  : []).map((tech, i) => (
                   <span
                     key={i}
-                    className="text-xs bg-cyan-600/10 border border-cyan-400 text-cyan-300 px-2 py-1 rounded-full"
+                    className="text-xs bg-cyan-600/10 border border-cyan-400 text-cyan-300 px-2 py-1 rounded-full select-none"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-              <div className="flex justify-center w-full mt-4">
-                <button className="bg-cyan-500 text-white px-4 py-2 rounded-xl hover:bg-cyan-600 transition">
-                  <Link href={project.url} target="_blank" >
-                    View Project
-                  </Link>
-                </button>
-              </div>
+              {project.live_link && (
+                  <div className="flex justify-center w-full mt-4">
+                    <Link
+                      href={project.live_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-cyan-500 text-white px-4 py-2 rounded-xl hover:bg-cyan-600 transition text-center"
+                    >
+                      Visit Project
+                    </Link>
+                  </div>
+                )}
             </motion.div>
           ))}
         </AnimatePresence>

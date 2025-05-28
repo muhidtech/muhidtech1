@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { mockPosts } from './data/mockPosts';
+import { useEffect, useState } from 'react';
 import BlogCard from './components/BlogCard';
 import FeaturedPost from './components/FeaturedPost';
 import SearchBar from './components/SearchBar';
@@ -9,6 +8,8 @@ import Categories from './components/Categories';
 import BackgroundAnimation from '../components/BackgroundAnimation';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { BlogPost } from './data/mockPosts';
+import { fetchPosts } from '../api/api';
 
 const POSTS_PER_PAGE = 8;
 
@@ -16,9 +17,31 @@ export default function BlogPage() {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [blog, setBlog] = useState<BlogPost[]>([]);
 
+
+   useEffect(() => {
+        const loadProjects = async () => {
+          try {
+            const data = await fetchPosts();
+            setBlog(data);
+          } catch (err) {
+            setError(
+              err && typeof err === "object" && "message" in err
+                ? (err as { message: string }).message
+                : "Failed to load projects"
+            );
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        loadProjects();
+      }, []);
   // Filter posts by category and search term
-  const filteredPosts = mockPosts.filter(post =>
+  const filteredPosts = blog.filter(post =>
     (selectedCategory === 'All' || post.category === selectedCategory) &&
     (post.title.toLowerCase().includes(search.toLowerCase()) ||
      post.summary.toLowerCase().includes(search.toLowerCase()))
@@ -92,7 +115,7 @@ export default function BlogPage() {
         <h1 className="text-4xl font-bold text-cyan-500 mb-6">Our Blog</h1>
 
         <SearchBar search={search} setSearch={handleSearchChange} />
-        <Categories posts={mockPosts} selected={selectedCategory} onSelect={handleCategorySelect} />
+        <Categories posts={blog} selected={selectedCategory} onSelect={handleCategorySelect} />
 
         {featuredPost && (
           <section className="my-10">

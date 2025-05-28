@@ -1,36 +1,31 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import { Metadata } from 'next'
-import ContactHero from './components/ContactHero'
-import Contact from './components/Contact'
-import ContactInfoSocials from './components/ContactInfo'
-// import WhatsAppCTA, { FAQs } from './components/Whats'
-import FaqSection from '../components/FaqSection'
-import DownloadCV from '../projects/components/DownloadCV'
-
-
-
-
+import React from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { Metadata } from "next";
+import ContactHero from "./components/ContactHero";
+import Contact from "./components/Contact";
+import ContactInfoSocials from "./components/ContactInfo";
+import FaqSection from "../components/FaqSection";
+import DownloadCV from "../projects/components/DownloadCV";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contact me for any inquiries or collaborations. I'm here to help you with your projects and ideas.",
+  title: "Contact MuhidTech | Get in Touch for Projects & Collaborations",
+  description:
+    "Reach out to MuhidTech for inquiries, project collaborations, or support. We're ready to help you bring your ideas to life.",
   keywords: [
     "Contact",
     "Inquiries",
     "Collaborations",
     "Projects",
-    "Ideas",
-    "Help",
     "Support",
     "Email",
     "Phone",
     "Social Media",
     "MuhidTech Contact",
-    "MuhidTech Inquiries",
+    "MuhidTech Support",
     "MuhidTech Collaborations",
-    
+    "Get in Touch",
+    "Reach MuhidTech",
   ],
   authors: [
     {
@@ -38,22 +33,78 @@ export const metadata: Metadata = {
       url: "https://muhidtech.vercel.app",
     },
   ],
-}
+  openGraph: {
+    title: "Contact MuhidTech | Web Development & Collaborations",
+    description:
+      "Contact MuhidTech to discuss your web development projects, collaborations, or inquiries. We’re here to help you succeed.",
+    url: "https://muhidtech.vercel.app/contact",
+    siteName: "MuhidTech",
+    images: [
+      {
+        url: "https://muhidtech.vercel.app/images/contact-og-image.png", // Replace with your actual image URL
+        width: 1200,
+        height: 630,
+        alt: "Contact MuhidTech",
+      },
+    ],
+    locale: "en-US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@MuhidTech",
+    creator: "@MuhidTech",
+  },
+};
 
-function page() {
+function ContactPage() {
   return (
     <>
-        <Navbar />
+      <Navbar />
+      <main>
         <ContactHero />
-        <Contact /> 
+        <Contact />
         <ContactInfoSocials />
         <FaqSection />
         <DownloadCV />
-        {/* <WhatsAppCTA /> */}
-        {/* <FAQs /> */}
-        <Footer /> 
+      </main>
+      <Footer />
+
+      {/* Structured Data for Contact */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "MuhidTech",
+            "url": "https://muhidtech.vercel.app",
+            "logo": "https://muhidtech.vercel.app/icons/android-chrome-512x512.png",
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "telephone": "+233599153930", // Replace with your real phone number
+                "contactType": "Customer Support",
+                "areaServed": "Global",
+                "availableLanguage": ["English"],
+              },
+              {
+                "@type": "ContactPoint",
+                "email": "muhidtech77@gmail.com", // Replace with your real email
+                "contactType": "Customer Support",
+                "availableLanguage": ["English"],
+              },
+            ],
+            "sameAs": [
+              "https://github.com/muhidtech",
+              "https://www.linkedin.com/in/mohammed-muhideen-abdul-kadir-19aa99357",
+              "https://x.com/MuhidTech911",
+            ],
+          }),
+        }}
+      />
     </>
-  )
+  );
 }
 
-export default page
+export default ContactPage;

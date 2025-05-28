@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Layout from "../dashboard/components/layout/Layout";
 import { createPost, fetchPosts, updatePost, deletePost } from "@/app/api/api";
+import ProtectedRoute from "@/app/hooks/ProtectedRoute";
 
 
 export interface BlogPost {
@@ -73,80 +74,82 @@ export default function BlogPage() {
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (
-    <Layout>
-      <div className="ml-65 p-4 bg-white/20 backdrop-blur-2xl rounded-lg shadow max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold">Blog Posts</h2>
-          <button
-            onClick={() => setModalOpen(true)}
-            className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded"
-          >
-            + Add New
-          </button>
-        </div>
+    <ProtectedRoute>
+      <Layout>
+        <div className="ml-65 p-4 bg-white/20 backdrop-blur-2xl rounded-lg shadow max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold">Blog Posts</h2>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded"
+            >
+              + Add New
+            </button>
+          </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-left text-sm font-light">
-            <thead className="border-b border-gray-300 dark:border-gray-700">
-              <tr>
-                <th className="px-4 py-2">Title</th>
-                <th className="px-4 py-2 hidden sm:table-cell">Category</th>
-                <th className="px-4 py-2 hidden md:table-cell">Date</th>
-                <th className="px-4 py-2 hidden lg:table-cell">Author</th>
-                <th className="px-4 py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {blogs.map((blog) => (
-                <tr
-                  key={blog.id}
-                  className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  <td className="px-4 py-3 max-w-xs truncate">{blog.title}</td>
-                  <td className="px-4 py-3 hidden sm:table-cell">{blog.category}</td>
-                  <td className="px-4 py-3 hidden md:table-cell">
-                    {new Date(blog.date).toLocaleDateString()}
-                  </td>
-                  <td className="px-4 py-3 hidden lg:table-cell">{blog.author || "-"}</td>
-                  <td className="px-4 py-3 space-x-2">
-                    <button
-                      onClick={() => handleEdit(blog.id)}
-                      className="text-cyan-500 hover:underline cursor-pointer"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(blog.id)}
-                      className="text-red-600 hover:underline"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {blogs.length === 0 && (
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-left text-sm font-light">
+              <thead className="border-b border-gray-300 dark:border-gray-700">
                 <tr>
-                  <td colSpan={5} className="px-4 py-6 text-center text-gray-500">
-                    No blog posts found.
-                  </td>
+                  <th className="px-4 py-2">Title</th>
+                  <th className="px-4 py-2 hidden sm:table-cell">Category</th>
+                  <th className="px-4 py-2 hidden md:table-cell">Date</th>
+                  <th className="px-4 py-2 hidden lg:table-cell">Author</th>
+                  <th className="px-4 py-2">Actions</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {blogs.map((blog) => (
+                  <tr
+                    key={blog.id}
+                    className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    <td className="px-4 py-3 max-w-xs truncate">{blog.title}</td>
+                    <td className="px-4 py-3 hidden sm:table-cell">{blog.category}</td>
+                    <td className="px-4 py-3 hidden md:table-cell">
+                      {new Date(blog.date).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 hidden lg:table-cell">{blog.author || "-"}</td>
+                    <td className="px-4 py-3 space-x-2">
+                      <button
+                        onClick={() => handleEdit(blog.id)}
+                        className="text-cyan-500 hover:underline cursor-pointer"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(blog.id)}
+                        className="text-red-600 hover:underline"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {blogs.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="px-4 py-6 text-center text-gray-500">
+                      No blog posts found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
 
-        {isModalOpen && (
-        <AddPostModal
-          postToEdit={editPost || undefined}
-          isEditMode={!!editPost}
-          onClose={() => {
-            setModalOpen(false);
-            setEditPost(null);
-          }}
-        />
-      )}
-      </div>
-    </Layout>
+          {isModalOpen && (
+          <AddPostModal
+            postToEdit={editPost || undefined}
+            isEditMode={!!editPost}
+            onClose={() => {
+              setModalOpen(false);
+              setEditPost(null);
+            }}
+          />
+        )}
+        </div>
+      </Layout>
+    </ProtectedRoute>
   );
 }
 
@@ -281,7 +284,6 @@ function AddPostModal({ onClose, postToEdit, isEditMode }: ModalProps) {
             );
         }
     }, [title]);
-
 
   return (
     <div
