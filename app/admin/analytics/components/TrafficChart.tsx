@@ -1,6 +1,7 @@
 "use client";
 import { fetchTrafficData } from "@/app/api/api";
 import { useEffect, useState } from "react";
+import type { ChartData } from "chart.js";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -14,12 +15,10 @@ import {
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-type VercelEvent = {
-  timestamp: string;
-};
+
 
 export default function TrafficChart() {
-  const [chartData, setChartData] = useState<any>(null);
+  const [chartData, setChartData] = useState<ChartData<"line"> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

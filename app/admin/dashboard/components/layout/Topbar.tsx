@@ -1,5 +1,5 @@
 // components/layout/Topbar.tsx
-import { Menu, Moon, Sun } from "lucide-react";
+import { Menu } from "lucide-react";
 
 export default function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
 

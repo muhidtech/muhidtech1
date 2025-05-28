@@ -244,7 +244,7 @@ function AddPostModal({ onClose, postToEdit, isEditMode }: ModalProps) {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
-  }, [dragging, offset]);
+  }, [dragging, offset, onMouseMove, onMouseUp]);
 
   // Submit handler
   const handleSubmit = (e: React.FormEvent) => {
@@ -283,7 +283,7 @@ function AddPostModal({ onClose, postToEdit, isEditMode }: ModalProps) {
                 .replace(/(^-|-$)+/g, "")
             );
         }
-    }, [title]);
+    }, [title, slug]);
 
   return (
     <div

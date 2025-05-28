@@ -131,6 +131,13 @@ export default function FeaturedProjects() {
                 )}
             </motion.div>
           ))}
+
+          {error && (
+          <div></div>
+          )}
+          {loading && (
+            <div></div>
+          )}
         </AnimatePresence>
       </div>
     </section>

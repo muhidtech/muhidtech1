@@ -132,6 +132,13 @@ export default function BlogPage() {
         </section>
 
         {totalPages > 1 && <Pagination />}
+
+        {error && (
+          <div></div>
+        )}
+        {loading && (
+          <div></div>
+        )}
       </main>
       <Footer />
     </>

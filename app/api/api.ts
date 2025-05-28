@@ -188,8 +188,12 @@ export async function fetchTrafficData() {
     }
 
     return data.events; // an array of { timestamp: string } or similar
-  } catch (error: any) {
-    console.error("Error fetching traffic data:", error.message);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching traffic data:", error.message);
+    } else {
+      console.error("Error fetching traffic data:", error);
+    }
     return null;
   }
 }
