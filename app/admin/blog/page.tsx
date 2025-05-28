@@ -33,8 +33,12 @@ export default function BlogPage() {
       try {
         const data = await fetchPosts();
         setBlogs(data);
-      } catch (e: any) {
-        setError(e.message || "Failed to fetch blogs");
+      } catch (e) {
+        setError(
+          typeof e === "object" && e !== null && "message" in e
+            ? String((e as { message?: unknown }).message)
+            : "Failed to fetch blogs"
+        );
       } finally {
         setLoading(false);
       }
@@ -42,22 +46,6 @@ export default function BlogPage() {
     loadBlogs();
   }, []);
 
-  const handleSubmit = async (post: Partial<BlogPost>) => {
-    try {
-      if (editPost) {
-        const updated = await updatePost(editPost.id.toString(), post);
-        setBlogs((prev) =>
-          prev.map((b) => (b.id === editPost.id ? { ...b, ...updated } : b))
-        );
-        setEditPost(null);
-      } else {
-        const newPost = await createPost(post);
-        setBlogs((prev) => [newPost, ...prev]);
-      }
-    } catch (err: any) {
-      alert(err.message);
-    }
-  };
 
   const handleEdit = (id: number) => {
     const post = blogs.find((b) => b.id === id);
@@ -72,8 +60,12 @@ export default function BlogPage() {
     try {
       await deletePost(id.toString());
       setBlogs((prev) => prev.filter((b) => b.id !== id));
-    } catch (err: any) {
-      alert(err.message);
+    } catch (err) {
+      alert(
+        typeof err === "object" && err !== null && "message" in err
+          ? String((err as { message?: unknown }).message)
+          : "Failed to delete blog post"
+      );
     }
   };
 
@@ -254,19 +246,20 @@ function AddPostModal({ onClose, postToEdit, isEditMode }: ModalProps) {
   // Submit handler
   const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
+  // Only use string URLs for image and videoUrl fields in blogData
   const blogData = {
     title,
     summary,
     category,
     date,
     slug,
-    image: imageFile || (image || undefined),
+    image: image || undefined,
     featured,
     author: author || undefined,
     readTime: readTime || undefined,
     tags: tags ? tags.split(",").map(t => t.trim()) : undefined,
     content,
-    videoUrl: videoFile || (videoUrl || undefined),
+    videoUrl: videoUrl || undefined,
   };
 
   if (isEditMode && postToEdit) {

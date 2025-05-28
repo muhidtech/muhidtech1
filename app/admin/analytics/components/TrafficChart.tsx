@@ -19,8 +19,19 @@ type VercelEvent = {
 };
 
 export default function TrafficChart() {
-  const [chartData, setChartData] = useState<any>(null);
-
+    const [chartData, setChartData] = useState<{
+        labels: string[];
+        datasets: {
+            label: string;
+            data: number[];
+            fill: boolean;
+            borderColor: string;
+            backgroundColor: string;
+            tension: number;
+            pointRadius: number;
+            pointBackgroundColor: string;
+        }[];
+    } | null>(null);
   useEffect(() => {
     const fetchTraffic = async () => {
       const res = await fetch("/api/traffic");
