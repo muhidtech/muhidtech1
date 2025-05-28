@@ -1,6 +1,6 @@
 
 export interface BlogPost {
-  id: number;
+  id?: number;
   title: string;
   summary: string;
   category: string;
@@ -13,6 +13,7 @@ export interface BlogPost {
   tags?: string[];
   content: string;
   videoUrl?: string;
+  created_at?: string;
 }
 
 export const mockPosts: BlogPost[] = [

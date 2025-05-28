@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import { BlogPost } from '../data/mockPosts';
+import Image from 'next/image';
 
 export default function BlogDetail({ post }: { post: BlogPost }) {
   return (
@@ -14,7 +15,8 @@ export default function BlogDetail({ post }: { post: BlogPost }) {
       </p>
 
       {post.image && (
-        <img
+        <Image
+          fill
           src={post.image}
           alt={post.title}
           className="w-full rounded-lg mb-8"

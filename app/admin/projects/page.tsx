@@ -18,8 +18,12 @@ const ProjectsPage: React.FC = () => {
       try {
         const data = await fetchProjects();
         setProjects(data);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load projects');
+      } catch (err) {
+        setError(
+          err && typeof err === 'object' && 'message' in err
+            ? (err as { message: string }).message
+            : 'Failed to load projects'
+        );
       } finally {
         setLoading(false);
       }
@@ -32,8 +36,12 @@ const ProjectsPage: React.FC = () => {
     try {
       const newProject = await createProject(project);
       setProjects((prev) => [...prev, newProject]);
-    } catch (err: any) {
-      alert(err.message || 'Failed to create project');
+    } catch (err) {
+      alert(
+        err && typeof err === 'object' && 'message' in err
+          ? (err as { message: string }).message
+          : 'Failed to create project'
+      );
     }
   };
 
@@ -44,8 +52,12 @@ const ProjectsPage: React.FC = () => {
       setProjects((prev) =>
         prev.map((p) => (p.id === updatedProject.id ? updatedProject : p))
       );
-    } catch (err: any) {
-      alert(err.message || 'Failed to update project');
+    } catch (err) {
+      alert(
+        err && typeof err === 'object' && 'message' in err
+          ? (err as { message: string }).message
+          : 'Failed to update project'
+      );
     }
   };
 
@@ -54,8 +66,12 @@ const ProjectsPage: React.FC = () => {
     try {
       await deleteProject(id);
       setProjects((prev) => prev.filter((p) => p.id !== id));
-    } catch (err: any) {
-      alert(err.message || 'Failed to delete project');
+    } catch (err) {
+      alert(
+        err && typeof err === 'object' && 'message' in err
+          ? (err as { message: string }).message
+          : 'Failed to delete project'
+      );
     }
   };
 

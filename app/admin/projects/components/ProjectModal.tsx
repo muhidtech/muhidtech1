@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Project } from '../Project';
+import Image from 'next/image';
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -90,8 +91,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
             className="w-full p-2 border border-gray-300 rounded"
           />
           {project.image && (
-            <img
+            <Image
               src={project.image}
+              fill
               alt="Preview"
               className="w-full h-48 object-cover rounded border"
             />

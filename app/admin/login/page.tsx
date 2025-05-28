@@ -21,8 +21,12 @@ const LoginPage: React.FC = () => {
       await login({ username, password });
       alert('Login successful!');
       // navigate('/dashboard') if you're using react-router
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Login failed');
+      }
     } finally {
       setLoading(false);
     }
