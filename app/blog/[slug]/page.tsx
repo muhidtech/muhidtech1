@@ -45,13 +45,13 @@ export default function BlogPostPage() {
 
   // Fetch comments for this post when loaded
   useEffect(() => {
-    if (!postId) return;
+    if (!post || !post.slug) return;
     setLoading(true);
     getComments(post.slug)
       .then(setComments)
       .catch(() => setError("Failed to load comments."))
       .finally(() => setLoading(false));
-  }, [postId]);
+  }, [postId, post?.slug]);
 
   // Submit a comment via API
   const handleCommentSubmit = async (e: React.FormEvent) => {

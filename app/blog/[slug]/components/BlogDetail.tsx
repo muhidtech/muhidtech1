@@ -29,7 +29,6 @@ export default function BlogDetail({ post }: Props) {
 
       {/* Markdown Content */}
       <ReactMarkdown
-        children={post.content}
         rehypePlugins={[rehypeRaw, rehypeHighlight]}
         remarkPlugins={[remarkGfm]}
         components={{
@@ -45,7 +44,9 @@ export default function BlogDetail({ post }: Props) {
             );
           },
         }}
-      />
+      >
+        {post.content}
+      </ReactMarkdown>
 
       {/* Optional YouTube Video */}
       {post.video && (
