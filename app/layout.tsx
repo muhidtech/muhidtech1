@@ -39,6 +39,9 @@ export const metadata: Metadata = {
     "Software Engineer",
     "Software Development",
     "Web Developer Portfolio",
+    "Muhid Tech",
+    "Muhid Frontend Developer",
+    "Muhid Portfolio"
   ],
   authors: [
     {
@@ -56,7 +59,7 @@ export const metadata: Metadata = {
     siteName: "MuhidTech",
     images: [
       {
-        url: "https://muhidtech.vercel.app/projects/muhidtech.png",
+        url: "https://muhidtech.vercel.app/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "MuhidTech | Web Developer",

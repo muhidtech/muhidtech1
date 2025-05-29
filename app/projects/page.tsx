@@ -7,6 +7,8 @@ import FeaturedProjects from "./components/Featured";
 import ProjectStats from "./components/ProjectsStats";
 import DownloadCV from "./components/DownloadCV";
 import CallToAction from "../about/components/CTA";
+import Testimonials from "../about/components/Testimonials";
+import TechStack from "../about/components/TechStack";
 
 export const metadata: Metadata = {
   title: "MuhidTech Projects | Showcasing Creative Web & Software Solutions",
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "MuhidTech",
     images: [
       {
-        url: "https://muhidtech.vercel.app/images/projects-og-image.png", // Replace with your actual image URL
+        url: "https://muhidtech.vercel.app/opengraph-image.png", // Replace with your actual image URL
         width: 1200,
         height: 630,
         alt: "MuhidTech Project Showcase",
@@ -61,6 +63,8 @@ function ProjectsPage() {
         <ProjectStats />
         <FeaturedProjects />
         <DownloadCV />
+        <TechStack />
+        <Testimonials />
         <CallToAction />
       </main>
       <Footer />

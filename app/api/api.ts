@@ -197,3 +197,22 @@ export async function fetchTrafficData() {
     return null;
   }
 }
+
+
+export async function getComments(slug: string) {
+  const res = await fetch(`${BASE_URL}/api/blog/posts/${slug}/comments/`);
+  if (!res.ok) throw new Error("Failed to fetch comments");
+  return res.json();
+}
+
+// Post a comment to a blog post by slug
+export async function postComment(slug: string, name: string, text: string) {
+  const res = await fetch(`${BASE_URL}/api/blog/posts/${slug}/comments/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, text }),
+  });
+
+  if (!res.ok) throw new Error("Failed to post comment");
+  return res.json();
+}

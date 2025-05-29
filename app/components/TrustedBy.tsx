@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 const brands = [
@@ -10,36 +9,48 @@ const brands = [
   { name: 'Slack', logo: '/brands/slack.svg' },
   { name: 'Amazon', logo: '/brands/amazon.svg' },
   { name: 'Dropbox', logo: '/brands/dropbox.svg' },
+  // Duplicate for infinite loop
+  { name: 'Google2', logo: '/brands/google.svg' },
+  { name: 'Stripe2', logo: '/brands/stripe.svg' },
+  { name: 'Netflix2', logo: '/brands/netflix.svg' },
+  { name: 'Slack2', logo: '/brands/slack.svg' },
 ]
 
 export default function TrustedBy() {
   return (
-    <section className="relative py-5 px-6 text-white h-full w-full">
-      <div className="absolute inset-0 z-0 flex items-center justify-center">
-        <div className="w-[1100px] h-[200px] rounded-full bg-white blur-3xl opacity-10" />
+    <section className="relative py-16 bg-transparent overflow-hidden">
+      {/* Background blur */}
+      <div className="absolute inset-0 flex items-center justify-center z-0">
+        <div className="w-[700px] h-[180px] rounded-full bg-white blur-3xl opacity-5" />
       </div>
-      <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center space-y-10 ">
-        <h3 className="text-xl md:text-2xl text-white/70 font-medium tracking-tight">
+
+      {/* Section title */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center mb-8 px-4">
+        <h3 className="text-xl md:text-2xl text-white/70 font-medium">
           Trusted by leading brands
         </h3>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-          {brands.map((brand, index) => (
-            <motion.div
-              key={brand.name}
-              className="w-24 h-10 md:w-32 md:h-12 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition"
-              initial={{ opacity: 0, x: index < 3 ? -40 : 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+      </div>
+
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 h-full z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 h-full z-20 pointer-events-none" />
+
+      {/* Scrolling slider */}
+      <div className="relative z-10 overflow-hidden max-w-5xl mx-auto">
+        <div className="trusted-slider flex whitespace-nowrap gap-8 px-6 animate-slide">
+          {brands.map((brand, i) => (
+            <div
+              key={`${brand.name}-${i}`}
+              className="w-24 h-10 md:w-28 md:h-12 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition duration-300 shrink-0"
             >
               <Image
                 src={brand.logo}
                 alt={brand.name}
-                width={128}
+                width={112}
                 height={48}
                 className="object-contain w-full h-full"
               />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

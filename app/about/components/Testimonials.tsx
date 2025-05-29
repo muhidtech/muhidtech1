@@ -53,9 +53,15 @@ const testimonials = [
 export default function Testimonials() {
   return (
     <div className="py-20 px-6 sm:px-10 lg:px-20 bg-gradient-to-b from-transparent to-black/10 backdrop-blur-xl">
-      <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-10">
-        What Our Clients Say
-      </h2>
+      <div className="text-center max-w-3xl mx-auto mb-12">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          What Our Clients Say
+        </h2>
+        <p className="text-gray-300 text-base sm:text-lg">
+          Real feedback from the people we’ve partnered with — highlighting our commitment to quality, trust, and excellence.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {testimonials.map((t, i) => (
           <motion.div

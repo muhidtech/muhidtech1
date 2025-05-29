@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "MuhidTech",
     images: [
       {
-        url: "https://muhidtech.vercel.app/images/contact-og-image.png", // Replace with your actual image URL
+        url: "https://muhidtech.vercel.app/opengraph-image.png", // Replace with your actual image URL
         width: 1200,
         height: 630,
         alt: "Contact MuhidTech",

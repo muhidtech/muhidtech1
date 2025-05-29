@@ -6,7 +6,8 @@ import Represent from './components/Represent'
 import HowWeWork from './components/HowWeWork'
 import FaqSection from './components/FaqSection'
 import Footer from './components/Footer'
-import CallToAction from './components/CallToAction'
+import CallToAction from './about/components/CTA'
+import Testimonials from './about/components/Testimonials'
 
 
 
@@ -43,6 +44,17 @@ function page() {
 
           {/* Full-width line between plus signs */}
           <div className="absolute bottom-[-2%] w-full flex items-center justify-center">
+            <span className="text-white text-2xl font-bold">+</span>
+            <div className="flex-1 h-[1px] bg-cyan-500 mt-1 " />
+            <span className="text-white text-2xl font-bold">+</span>
+          </div>
+
+        </div>
+        <div className="relative w-full">
+          <Testimonials />
+
+          {/* Full-width line between plus signs */}
+          <div className="absolute bottom-10 w-full flex items-center justify-center">
             <span className="text-white text-2xl font-bold">+</span>
             <div className="flex-1 h-[1px] bg-cyan-500 mt-1 " />
             <span className="text-white text-2xl font-bold">+</span>
