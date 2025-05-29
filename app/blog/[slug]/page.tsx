@@ -32,7 +32,7 @@ export default function BlogPostPage() {
         const data = await fetchPosts();
         setPosts(data);
       } catch (e) {
-        setError("Failed to fetch posts.");
+        setError("Failed to fetch posts: " + (e instanceof Error ? e.message : String(e)));
       } finally {
         setLoading(false);
       }
@@ -72,7 +72,7 @@ export default function BlogPostPage() {
       setNewComment({ name: "", comment: "" });
       setError("");
     } catch (e) {
-      setError("Failed to post comment.");
+      setError("Failed to post comment." + (e instanceof Error ? e.message : String(e)));
     }
   };
 
@@ -143,7 +143,7 @@ export default function BlogPostPage() {
               rows={4}
               className="w-full rounded-md bg-gray-800 border border-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
             />
-            {/* {error && <p className="text-red-500">{error}</p>} */}
+            {error && <p className="text-red-500"></p>}
             <button
               type="submit"
               className="bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-md text-white font-semibold transition"

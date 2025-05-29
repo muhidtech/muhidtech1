@@ -7,6 +7,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css'; // Dark theme for code
 import ReactPlayer from 'react-player/youtube';
+import Image from 'next/image';
 
 interface Props {
   post: {
@@ -21,7 +22,7 @@ export default function BlogDetail({ post }: Props) {
   return (
     <article className="prose prose-invert max-w-full">
       {/* Cover Image */}
-      <img src={post.image} alt={post.title} className="rounded-lg w-full max-h-[400px] object-cover mb-6" />
+      <Image fill src={post.image} alt={post.title} priority className="rounded-lg w-full max-h-[400px] object-cover mb-6" />
 
       {/* Title */}
       <h1 className="text-4xl font-bold text-white mb-6">{post.title}</h1>
