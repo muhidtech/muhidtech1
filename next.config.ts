@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/webp", "image/avif"], // Use modern image formats
-    domains: ['muhidtech.onrender.com'],
+    domains: ['muhidtech.onrender.com', 'dwzujybvvokdlpsrcmmx.supabase.co'],
   },
   experimental: {
     optimizeCss: true, // Enable CSS optimization
