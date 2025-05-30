@@ -30,6 +30,7 @@ interface Props {
   };
 }
 
+// filepath: c:\Users\RanVic\OneDrive\Desktop\portfolio\app\blog\[slug]\components\BlogDetail.tsx
 export const CodeBlock: React.FC<CodeProps> = ({
   inline,
   className,
@@ -39,6 +40,17 @@ export const CodeBlock: React.FC<CodeProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
 
+  // Only customize code blocks (not inline code)
+  if (inline) {
+    // Render inline code as plain text (no styling)
+    return <>{children}</>;
+  }
+
+  // Extract language from className like "language-js"
+  const languageMatch = className?.match(/language-(\w+)/);
+  const language = languageMatch?.[1] ?? 'text';
+
+  // Get code string
   const codeString =
     !inline && node?.children?.[0]?.value
       ? node.children[0].value
@@ -56,19 +68,6 @@ export const CodeBlock: React.FC<CodeProps> = ({
     }
   };
 
-  // Inline code style - VSCode style with subtle bg and monospace font
-  if (inline) {
-    return (
-      <span {...props}>
-        {children}
-      </span>
-    );
-  }
-
-  // Extract language from className like "language-js"
-  const languageMatch = className?.match(/language-(\w+)/);
-  const language = languageMatch?.[1] ?? 'text';
-
   return (
     <div className="relative group mb-6 rounded-md border border-[#333] bg-[#1e1e1e] font-mono">
       <div className="flex justify-between items-center px-4 py-2 bg-[#252526] text-xs text-[#cccccc] rounded-t-md select-none">
@@ -82,7 +81,7 @@ export const CodeBlock: React.FC<CodeProps> = ({
         </button>
       </div>
       <pre
-        className={`p-4 overflow-x-auto text-sm text-white/80`}
+        className={`p-4 overflow-x-auto text-sm text-[#d4d4d4]`}
         style={{ fontFamily: "'Source Code Pro', monospace" }}
       >
         <code {...props}>{children}</code>
