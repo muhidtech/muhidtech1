@@ -59,15 +59,9 @@ export const CodeBlock: React.FC<CodeProps> = ({
   // Inline code style - VSCode style with subtle bg and monospace font
   if (inline) {
     return (
-      <code
-        {...props}
-        className="bg-[#1e1e1e] text-[#d4d4d4] font-mono rounded px-1.5 py-[2px] text-sm"
-        style={{
-          fontFeatureSettings: '"calt" 1, "liga" 1',
-        }}
-      >
+      <span {...props}>
         {children}
-      </code>
+      </span>
     );
   }
 
@@ -88,7 +82,7 @@ export const CodeBlock: React.FC<CodeProps> = ({
         </button>
       </div>
       <pre
-        className={`p-4 overflow-x-auto text-sm text-[#d4d4d4]`}
+        className={`p-4 overflow-x-auto text-sm text-white/80`}
         style={{ fontFamily: "'Source Code Pro', monospace" }}
       >
         <code {...props}>{children}</code>
