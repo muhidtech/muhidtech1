@@ -3,7 +3,8 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import 'highlight.js/styles/github-dark.css'; // We will override some styles below
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactPlayer from 'react-player/youtube';
 import Image from 'next/image';
 import { useState, ReactNode } from 'react';
@@ -12,10 +13,7 @@ interface CodeProps {
   inline?: boolean;
   className?: string;
   children?: ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   node?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
 }
 
 interface Props {
@@ -30,32 +28,26 @@ interface Props {
   };
 }
 
-// filepath: c:\Users\RanVic\OneDrive\Desktop\portfolio\app\blog\[slug]\components\BlogDetail.tsx
 export const CodeBlock: React.FC<CodeProps> = ({
   inline,
   className,
   children,
   node,
-  ...props
 }) => {
   const [copied, setCopied] = useState(false);
 
-  // Only customize code blocks (not inline code)
   if (inline) {
-    // Render inline code as plain text (no styling)
-    return <>{children}</>;
+    return <code className="bg-neutral-800 text-white px-1 rounded">{children}</code>;
   }
 
-  // Extract language from className like "language-js"
-  const languageMatch = className?.match(/language-(\w+)/);
+  const languageMatch = /language-(\w+)/.exec(className || '');
   const language = languageMatch?.[1] ?? 'text';
 
-  // Get code string
   const codeString =
-    !inline && node?.children?.[0]?.value
-      ? node.children[0].value
-      : typeof children === 'string'
+    typeof children === 'string'
       ? children
+      : Array.isArray(children)
+      ? children.join('')
       : '';
 
   const handleCopy = async () => {
@@ -81,10 +73,12 @@ export const CodeBlock: React.FC<CodeProps> = ({
         </button>
       </div>
       <pre
-        className={`p-4 overflow-x-auto text-sm text-[#d4d4d4]`}
+        className="p-4 overflow-x-auto text-sm text-[#d4d4d4]"
         style={{ fontFamily: "'Source Code Pro', monospace" }}
       >
-        <code {...props}>{children}</code>
+        <SyntaxHighlighter language={language} style={dark} PreTag="div">
+          {codeString}
+        </SyntaxHighlighter>
       </pre>
     </div>
   );
