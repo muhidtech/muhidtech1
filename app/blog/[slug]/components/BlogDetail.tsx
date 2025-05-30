@@ -13,7 +13,6 @@ interface CodeProps {
   inline?: boolean;
   className?: string;
   children?: ReactNode;
-  node?: any;
 }
 
 interface Props {
@@ -32,7 +31,6 @@ export const CodeBlock: React.FC<CodeProps> = ({
   inline,
   className,
   children,
-  node,
 }) => {
   const [copied, setCopied] = useState(false);
 
