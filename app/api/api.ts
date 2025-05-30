@@ -1,7 +1,23 @@
 // utils/api.ts
 
 import { Project } from "../admin/projects/Project";
-import { BlogPost } from "../blog/data/mockPosts";
+
+export interface BlogPost {
+  id?: number;
+  title: string;
+  summary: string;
+  category: string;
+  date: string;
+  slug: string;
+  image?: File;
+  featured?: boolean;
+  author?: string;
+  readTime?: string;
+  tags?: string[];
+  content: string;
+  videoUrl?: string;
+  created_at?: string;
+}
 
 const BASE_URL = 'https://muhidtech.onrender.com';
 
@@ -86,14 +102,22 @@ export const login = async (credentials: LoginCredentials): Promise<void> => {
 };
 
 // Get all blog posts (public)
+
 export const fetchPosts = async () => {
   return authFetch('/api/blog/posts/', { method: 'GET' });
 };
-
+export const getPostBySlug = async (slug: string) => {
+  return authFetch(`/api/blog/posts/${slug}/`, { method: 'GET' });
+};
 // Get all projects (public GET)
 export const fetchProjects = async () => {
   return authFetch('/api/projects/', { method: 'GET' });
 };
+
+export const fetchSingleProject = async (id: string): Promise<Project> => {
+  return authFetch(`/api/projects/${id}/`, { method: 'GET' });
+
+}
 
 // Create a project (auth required)
 export const createProject = async (projectData: Project) => {
@@ -159,9 +183,31 @@ export const createPost = async (postData: BlogPost) => {
 
 // Update a blog post by ID (auth required)
 export const updatePost = async (postId: string, postData: BlogPost) => {
+  const formData = new FormData();
+
+  formData.append("title", postData.title);
+  formData.append("summary", postData.summary);
+  formData.append("category", postData.category);
+  formData.append("date", postData.date);
+  formData.append("slug", postData.slug);
+  formData.append("author", postData.author || "Anonymous");
+  formData.append("readTime", postData.readTime || "1 min");
+  formData.append("featured", String(postData.featured ?? false));
+  formData.append("content", postData.content);
+  if (postData.videoUrl) formData.append("videoUrl", postData.videoUrl);
+
+  if (postData.tags && postData.tags.length > 0) {
+    postData.tags.forEach((tag) => formData.append("tags", tag));
+  }
+
+  if (typeof File !== "undefined" && postData.image instanceof File) {
+    formData.append("image", postData.image);
+  }
+
   return authFetch(`/api/blog/posts/${postId}/`, {
-    method: 'PATCH', // or 'PATCH' if partial update is preferred
-    body: JSON.stringify(postData),
+    method: "PATCH",
+    body: formData,
+    headers: {}, // DO NOT set Content-Type manually when using FormData
   });
 };
 

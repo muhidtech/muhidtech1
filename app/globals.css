@@ -47,4 +47,23 @@
   .animate-slide {
     animation: slide 30s linear infinite;
   }
+
+  @keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out forwards;
+  }
+}
+
+@layer components {
+  .input {
+    @apply w-full px-4 py-2 border border-cyan-400 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:bg-gray-800 dark:border-cyan-600 dark:text-white;
+  }
 }

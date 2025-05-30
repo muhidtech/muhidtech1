@@ -11,6 +11,25 @@ import { BlogPost } from "../data/mockPosts";
 import { fetchPosts, getComments, postComment } from "@/app/api/api";
 import FancyNavbar from "./components/FancyNavbar";
 
+
+
+function timeAgo(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  if (seconds < 60) return "just now";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "yesterday";
+  return `${days} day${days > 1 ? "s" : ""} ago`;
+}
+
+
+
 export default function BlogPostPage() {
   const router = useRouter();
   const { slug } = useParams() as { slug: string };
@@ -21,11 +40,10 @@ export default function BlogPostPage() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const [comments, setComments] = useState<{ name: string; comment: string }[]>([]);
+  const [comments, setComments] = useState<{ name: string; text: string, created_at: string }[]>([]);
   const [newComment, setNewComment] = useState({ name: "", comment: "" });
   const [showComments, setShowComments] = useState(true);
 
-  // Fetch all blog posts
   useEffect(() => {
     async function load() {
       try {
@@ -43,7 +61,6 @@ export default function BlogPostPage() {
   const post = posts.find(p => p.slug === slug);
   const postId = post?.id;
 
-  // Fetch comments for this post when loaded
   useEffect(() => {
     if (!post || !post.slug) return;
     setLoading(true);
@@ -53,7 +70,6 @@ export default function BlogPostPage() {
       .finally(() => setLoading(false));
   }, [postId, post?.slug]);
 
-  // Submit a comment via API
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { name, comment } = newComment;
@@ -61,7 +77,7 @@ export default function BlogPostPage() {
       setError("Please enter both name and comment.");
       return;
     }
-    if (!post || post.slug === undefined || !post.slug) {
+    if (!post?.slug) {
       setError("Post not loaded. Please try again later.");
       return;
     }
@@ -75,7 +91,6 @@ export default function BlogPostPage() {
       setError("Failed to post comment." + (e instanceof Error ? e.message : String(e)));
     }
   };
-
 
   const handleCategorySelect = (cat: string) => {
     setSelectedCategory(cat);
@@ -94,17 +109,10 @@ export default function BlogPostPage() {
     );
   }
 
-  // Extract unique categories from posts, including "All"
   const categories = ["All", ...Array.from(new Set(posts.flatMap(p => p.category ? [p.category] : [])))];
 
-  // Define topPosts and relatedPosts
-  const topPosts = posts
-    .filter(p => p.id !== post.id)
-    .slice(0, 3);
-
-  const relatedPosts = posts
-    .filter(p => p.id !== post.id && p.category === post.category)
-    .slice(0, 3);
+  const topPosts = posts.filter(p => p.id !== post.id).slice(0, 3);
+  const relatedPosts = posts.filter(p => p.id !== post.id && p.category === post.category).slice(0, 3);
 
   return (
     <>
@@ -121,71 +129,94 @@ export default function BlogPostPage() {
       <main className="max-w-4xl mx-auto px-6 py-12 mt-10">
         <BlogDetail post={post} />
 
-        {/* Comment Section */}
-        <section className="mt-20 mb-24">
-          <h2 className="text-3xl font-bold text-cyan-500 mb-6">Leave a Comment</h2>
+        <section className="mt-20 mb-24 max-w-2xl mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl font-bold text-cyan-500 mb-10 text-center">
+            Comments
+          </h2>
 
+          {/* Comment Form */}
           <form
             onSubmit={handleCommentSubmit}
-            className="bg-gray-900 border border-gray-700 rounded-xl p-6 mb-8 space-y-4 shadow-md"
+            className="bg-gray-900 border border-gray-700 rounded-xl p-6 sm:p-8 space-y-5 shadow-lg"
           >
             <input
               type="text"
-              placeholder="Your Name"
+              placeholder="Your name"
               value={newComment.name}
               onChange={e => setNewComment({ ...newComment, name: e.target.value })}
+              required
               className="w-full rounded-md bg-gray-800 border border-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
             />
             <textarea
-              placeholder="Your Comment"
+              placeholder="Write your comment..."
               value={newComment.comment}
               onChange={e => setNewComment({ ...newComment, comment: e.target.value })}
               rows={4}
+              required
               className="w-full rounded-md bg-gray-800 border border-gray-700 px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
             />
-            {error && <p className="text-red-500"></p>}
-            <button
-              type="submit"
-              className="bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-md text-white font-semibold transition"
-            >
-              Submit Comment
-            </button>
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            <div className="text-right">
+              <button
+                type="submit"
+                className="bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-md text-white font-semibold shadow-md transition"
+              >
+                Post Comment
+              </button>
+            </div>
           </form>
 
           {/* Toggle Comments */}
-          <div className="text-center mb-6">
+          <div className="text-center mt-10 mb-6">
             <button
               onClick={() => setShowComments(prev => !prev)}
-              className="text-cyan-400 hover:text-cyan-300 text-lg underline underline-offset-4 transition"
+              className="text-cyan-400 hover:text-cyan-300 text-lg underline underline-offset-4 transition font-medium"
             >
-              {showComments ? "Hide Comments" : `Show ${comments.length} Comment${comments.length !== 1 ? "s" : ""}`}
+              {showComments
+                ? "Hide Comments"
+                : `View ${comments.length} Comment${comments.length !== 1 ? "s" : ""}`}
             </button>
           </div>
 
-          {/* Comments */}
+          {/* TikTok/Instagram-style Comments */}
           {showComments && (
-            <div className="space-y-5">
+            <div className="space-y-6">
               {comments.length > 0 ? (
-                comments.map(({ name, comment }, i) => (
-                  <div
-                    key={i}
-                    className="bg-gray-900 border border-gray-700 rounded-lg p-5 shadow-sm hover:shadow-md transition"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-cyan-400 font-semibold">{name}</p>
-                      <span className="text-gray-500 text-sm">#{i + 1}</span>
+                comments.map(({ name, text, created_at }, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    {/* Avatar */}
+                    <div className="w-10 h-10 flex-shrink-0 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold">
+                      {name.charAt(0).toUpperCase()}
                     </div>
-                    <p className="text-gray-300">{comment}</p>
+
+                    {/* Comment content */}
+                    <div className="flex-1">
+                      <p className="text-gray-200 leading-snug">
+                        <span className="font-semibold text-cyan-400 mr-2">{name}</span>
+                        {text}
+                      </p>
+                      <div className="text-gray-500 text-xs mt-1">{timeAgo(created_at)}</div>
+                    </div>
+
+                    {/* Optional Like Icon
+                    <button
+                      className="text-gray-500 hover:text-cyan-500 transition"
+                      title="Like"
+                    >
+                      ❤️
+                    </button> */}
                   </div>
                 ))
               ) : (
-                <p className="text-gray-400 text-center">No comments yet. Be the first to comment!</p>
+                <p className="text-gray-400 text-center italic">No comments yet. Be the first to leave one!</p>
               )}
             </div>
           )}
         </section>
 
-        {/* Related/Top Posts */}
+        {/* Related / Top Posts */}
         {[{ label: "Top Posts", data: topPosts }, { label: "Related Posts", data: relatedPosts }].map(
           ({ label, data }) =>
             data.length > 0 && (
