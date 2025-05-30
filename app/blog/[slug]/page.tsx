@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
-import BlogDetail from "../components/BlogDetail";
+import BlogDetail from "./components/BlogDetail";
 import BackgroundAnimation from "@/app/components/BackgroundAnimation";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
@@ -127,7 +127,19 @@ export default function BlogPostPage() {
       />
 
       <main className="max-w-4xl mx-auto px-6 py-12 mt-10">
-        <BlogDetail post={post} />
+        {post && (
+          <BlogDetail
+            post={{
+              title: post.title,
+              content: post.content,
+              image: post.image ?? "",
+              video: post.videoUrl,
+              author: post.author ?? "",
+              date: post.date,
+              readTime: post.readTime ?? "",
+            }}
+          />
+        )}
 
         <section className="mt-20 mb-24 max-w-2xl mx-auto px-4 sm:px-6">
           <h2 className="text-3xl sm:text-4xl font-bold text-cyan-500 mb-10 text-center">
