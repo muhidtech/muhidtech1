@@ -175,9 +175,31 @@ export const deleteProject = async (projectId: string) => {
 
 // Create a blog post (auth required)
 export const createPost = async (postData: BlogPost) => {
+  const formData = new FormData();
+
+  formData.append("title", postData.title);
+  formData.append("summary", postData.summary);
+  formData.append("category", postData.category);
+  formData.append("date", postData.date);
+  formData.append("slug", postData.slug);
+  formData.append("author", postData.author || "Anonymous");
+  formData.append("readTime", postData.readTime || "1 min");
+  formData.append("featured", String(postData.featured ?? false));
+  formData.append("content", postData.content);
+  if (postData.videoUrl) formData.append("videoUrl", postData.videoUrl);
+
+  if (postData.tags && postData.tags.length > 0) {
+    formData.append("tags", JSON.stringify(postData.tags));
+  }
+
+  if (postData.image instanceof File) {
+    formData.append("image", postData.image);
+  }
+
   return authFetch('/api/blog/posts/', {
     method: 'POST',
-    body: JSON.stringify(postData),
+    body: formData,
+    headers: {}, // IMPORTANT: Do NOT set Content-Type header when using FormData
   });
 };
 
@@ -196,9 +218,10 @@ export const updatePost = async (postId: string, postData: BlogPost) => {
   formData.append("content", postData.content);
   if (postData.videoUrl) formData.append("videoUrl", postData.videoUrl);
 
-  if (postData.tags && postData.tags.length > 0) {
-    postData.tags.forEach((tag) => formData.append("tags", tag));
+   if (postData.tags && postData.tags.length > 0) {
+    formData.append("tags", JSON.stringify(postData.tags));
   }
+
 
   if (typeof File !== "undefined" && postData.image instanceof File) {
     formData.append("image", postData.image);

@@ -76,45 +76,50 @@ export default function BlogPage() {
               : blogs.map((blog) => (
                   <div
                     key={blog.id}
-                    className="bg-gradient-to-tr from-cyan-700/80 to-blue-800/90 border border-cyan-400/40 rounded-2xl p-6 shadow-xl hover:shadow-cyan-400/60 transform hover:-translate-y-1 transition duration-300"
+                    className="bg-gradient-to-tr from-cyan-800/70 to-blue-900/90 border border-cyan-500/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-400/50 transition transform hover:-translate-y-1 duration-300"
                   >
                     {((typeof blog.image === "string" && blog.image) ||
                       (blog.image instanceof File && blog.image)) && (
-                      <Image
-                        fill
-                        src={
-                          typeof blog.image === "string"
-                            ? blog.image
-                            : blog.image instanceof File
-                            ? URL.createObjectURL(blog.image)
-                            : "" // fallback to empty string, which is valid but will not render an image
-                        }
-                        alt={blog.title}
-                        className="rounded-xl mb-4 w-full h-40 object-cover shadow-md"
-                      />
+                      <div className="relative w-full h-48">
+                        <Image
+                          fill
+                          src={
+                            typeof blog.image === "string"
+                              ? blog.image
+                              : blog.image instanceof File
+                              ? URL.createObjectURL(blog.image)
+                              : ""
+                          }
+                          alt={blog.title}
+                          className="object-cover w-full h-full"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                      </div>
                     )}
 
-                    <h3 className="text-xl font-bold text-white truncate mb-2">{blog.title}</h3>
-                    <p className="text-gray-300 text-sm mb-3 line-clamp-3">{blog.summary}</p>
+                    <div className="p-4">
+                      <h3 className="text-lg font-bold text-white mb-1 line-clamp-1">{blog.title}</h3>
+                      <p className="text-gray-300 text-sm mb-3 line-clamp-2">{blog.summary}</p>
 
-                    <div className="flex justify-between text-xs text-cyan-300 mb-4 font-mono">
-                      <span>{new Date(blog.date).toLocaleDateString()}</span>
-                      <span>{blog.author || "Anonymous"}</span>
-                    </div>
+                      <div className="flex justify-between text-xs text-cyan-300 font-mono mb-2">
+                        <span>{new Date(blog.date).toLocaleDateString()}</span>
+                        <span>{blog.author || "Anonymous"}</span>
+                      </div>
 
-                    <div className="flex justify-between gap-4">
-                      <button
-                        onClick={() => router.push(`/admin/blog/add?slug=${blog.slug}`)}
-                        className="text-cyan-400 hover:text-cyan-600 font-semibold text-sm transition"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(blog.id)}
-                        className="text-red-500 hover:text-red-600 font-semibold text-sm transition"
-                      >
-                        Delete
-                      </button>
+                      <div className="flex justify-between mt-2">
+                        <button
+                          onClick={() => router.push(`/admin/blog/add?slug=${blog.slug}`)}
+                          className="text-cyan-400 hover:text-cyan-600 font-semibold text-sm transition"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(blog.id)}
+                          className="text-red-500 hover:text-red-600 font-semibold text-sm transition"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
