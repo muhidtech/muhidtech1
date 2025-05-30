@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import {
@@ -12,7 +12,17 @@ import { Project } from '../Project';
 import ProtectedRoute from '@/app/hooks/ProtectedRoute';
 import Layout from '../../dashboard/components/layout/Layout';
 
-export default function AddOrEditProjectPage() {
+
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AddOrEditProjectPage />
+    </Suspense>
+  );
+}
+
+function AddOrEditProjectPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id'); // This determines edit mode
