@@ -12,7 +12,9 @@ interface CodeProps {
   inline?: boolean;
   className?: string;
   children?: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   node?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
