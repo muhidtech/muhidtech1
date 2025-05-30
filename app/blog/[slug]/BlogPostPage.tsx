@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import Link from "next/link";
 import BlogDetail from "./components/BlogDetail";
 import BackgroundAnimation from "@/app/components/BackgroundAnimation";
@@ -26,13 +26,10 @@ function timeAgo(dateString: string): string {
   const days = Math.floor(hours / 24);
   if (days === 1) return "yesterday";
   return `${days} day${days > 1 ? "s" : ""} ago`;
+
 }
 
-interface BlogPostPageProps {
-  slug: string;
-}
-
-export default function BlogPostPage({ slug }: BlogPostPageProps ){
+export default function BlogPostPage({ slug }: { slug: string } ){
   const router = useRouter();
 //   const { slug } = useParams() as { slug: string };
 
@@ -61,7 +58,7 @@ export default function BlogPostPage({ slug }: BlogPostPageProps ){
   }, []);
 
   const post = posts.find(p => p.slug === slug);
-  const postId = post?.id;
+  // const postId = post?.id;
 
   useEffect(() => {
     if (!post || !post.slug) return;
@@ -70,7 +67,7 @@ export default function BlogPostPage({ slug }: BlogPostPageProps ){
       .then(setComments)
       .catch(() => setError("Failed to load comments."))
       .finally(() => setLoading(false));
-  }, [postId, post?.slug]);
+  }, [post]);
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

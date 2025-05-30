@@ -242,6 +242,18 @@ export const deletePost = async (slug: string) => {
 };
 
 
+export const getAllSlugs = async (): Promise<string[]> => {
+  const posts = await fetchPosts();
+  // If your backend returns { results: [...] }, use posts.results
+  // Otherwise, use posts directly if it's an array
+  if (Array.isArray(posts)) {
+    return posts.map((post: { slug: string }) => post.slug);
+  } else if (posts.results && Array.isArray(posts.results)) {
+    return posts.results.map((post: { slug: string }) => post.slug);
+  }
+  throw new Error("Unexpected response format from fetchPosts");
+};
+
 export async function fetchTrafficData() {
   try {
     const res = await fetch("https://muhidtech.onrender.com/api/traffic/");
