@@ -235,8 +235,8 @@ export const updatePost = async (postId: string, postData: BlogPost) => {
 };
 
 // Delete a blog post by ID (auth required)
-export const deletePost = async (postId: string) => {
-  return authFetch(`/api/blog/posts/${postId}/`, {
+export const deletePost = async (slug: string) => {
+  return authFetch(`/api/blog/posts/${slug}/`, {
     method: 'DELETE',
   });
 };

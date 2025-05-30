@@ -44,11 +44,11 @@ export default function BlogPage() {
     loadBlogs();
   }, []);
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (slug: string) => {
     if (!confirm("Are you sure you want to delete this blog post?")) return;
     try {
-      await deletePost(id.toString());
-      setBlogs((prev) => prev.filter((b) => b.id !== id));
+      await deletePost(slug);
+      setBlogs((prev) => prev.filter((b) => b.slug !== slug));
     } catch {
       alert("Failed to delete blog post");
     }
@@ -114,7 +114,7 @@ export default function BlogPage() {
                           Edit
                         </button>
                         <button
-                          onClick={() => handleDelete(blog.id)}
+                          onClick={() => handleDelete(blog.slug)}
                           className="text-red-500 hover:text-red-600 font-semibold text-sm transition"
                         >
                           Delete
