@@ -22,7 +22,16 @@ export default function BlogDetail({ post }: Props) {
   return (
     <article className="prose prose-invert max-w-full">
       {/* Cover Image */}
-      <Image fill src={post.image} alt={post.title} priority className="rounded-lg w-full max-h-[400px] object-cover mb-6" />
+      <div className="w-full h-[300px] relative mb-6 rounded-lg overflow-hidden">
+        <Image
+          src={post.image}
+          alt={post.title}
+          width={1200}
+          height={600} // Aspect ratio = 2:1
+          layout="responsive"
+          className="rounded-lg mb-6 object-cover"
+        />
+      </div>
 
       {/* Title */}
       <h1 className="text-4xl font-bold text-white mb-6">{post.title}</h1>
