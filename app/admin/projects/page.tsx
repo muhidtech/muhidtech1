@@ -70,7 +70,7 @@ const ProjectsPage: React.FC = () => {
   return (
     <ProtectedRoute>
       <Layout>
-        <section className="min-h-screen py-20 px-6 md:px-12 lg:px-24 ml-60">
+        <section className="min-h-screen py-20 px-6 md:px-12 lg:px-24 w-auto md:ml-60">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-cyan-600">
               Featured Projects

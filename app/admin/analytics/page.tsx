@@ -9,7 +9,7 @@ export default function AnalyticsPage() {
   return (
     <ProtectedRoute>
       <Layout>
-          <div className="ml-60 p-6 space-y-6">
+          <div className="md:ml-60 w-auto p-6 space-y-6">
           <h1 className="text-2xl font-bold text-cyan-600">Analytics Overview</h1>
           <AnalyticsOverview />
           </div>
