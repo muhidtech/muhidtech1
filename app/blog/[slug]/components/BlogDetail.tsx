@@ -28,35 +28,39 @@ interface Props {
 }
 
 
-export const CodeBlock: React.FC<CodeProps> = ({ inline, className, children }) => {
+export const CodeBlock: React.FC<CodeProps> = ({ inline, className, children, ...rest }) => {
   const [copied, setCopied] = useState(false);
 
-  // For inline code (`inline` === true)
-  if (inline) {
-    return (
-      <code className="bg-neutral-800 text-white px-1 py-0.5 rounded text-sm">
-        {children}
-      </code>
-    );
-  }
-
-  // For code blocks (triple backticks)
   const languageMatch = /language-(\w+)/.exec(className || '');
   const language = languageMatch?.[1] ?? 'text';
 
   const codeString = Array.isArray(children) ? children.join('') : String(children);
 
+  // Handle inline code (e.g., `django`, `rest api`)
+  if (inline) {
+    // Render inline code like a tag instead of real code styling
+    return (
+      <span className="bg-gray-800 text-gray-200 px-2 py-0.5 rounded text-sm font-medium mr-1">
+        {codeString}
+      </span>
+    );
+  }
+
+  // Handle code blocks (e.g., ```bash or ```
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(codeString.trim());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy text:', err);
+      console.error('Copy failed:', err);
     }
   };
 
   return (
+    <>
+    {languageMatch 
+      && (
     <div className="relative group mb-6 rounded-md border border-[#333] bg-[#1e1e1e] font-mono">
       <div className="flex justify-between items-center px-4 py-2 bg-[#252526] text-xs text-[#cccccc] rounded-t-md select-none">
         <span className="uppercase">{language}</span>
@@ -67,14 +71,25 @@ export const CodeBlock: React.FC<CodeProps> = ({ inline, className, children }) 
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
-      <pre className="p-4 overflow-x-auto text-sm text-[#d4d4d4]">
-        <SyntaxHighlighter language={language} style={dark} PreTag="div">
+      
+        <SyntaxHighlighter language={language}  style={dark}  PreTag="div">
           {codeString}
         </SyntaxHighlighter>
-      </pre>
     </div>
+      )
+      }
+    {!languageMatch 
+    &&  (
+
+        <code {...rest} className={className}>
+            {children}
+        </code>
+      )
+    }
+    </>
   );
 };
+
 
 export default function BlogDetail({ post }: Props) {
   return (
