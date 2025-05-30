@@ -6,7 +6,28 @@ import rehypeRaw from 'rehype-raw';
 import 'highlight.js/styles/github-dark.css';
 import ReactPlayer from 'react-player/youtube';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, ReactNode } from 'react';
+// import type { Element as HastElement } from 'hast';
+// import type { Parent } from 'unist';
+
+// interface CodeProps {
+//   inline?: boolean;
+//   className?: string;
+//   children?: ReactNode;
+//   node?: Parent & { children: { value: string }[] };
+//   [key: string]: unknown;
+// }
+
+interface CodeProps {
+  inline?: boolean;
+  className?: string;
+  children?: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  node?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
 
 interface Props {
   post: {
@@ -20,19 +41,13 @@ interface Props {
   };
 }
 
-function CodeBlock({
+export const CodeBlock: React.FC<CodeProps> = ({
   inline,
-  className = '',
+  className,
   children,
   node,
   ...props
-}: {
-  inline?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-  node?: any;
-  [key: string]: any;
-}) {
+}) => {
   const [copied, setCopied] = useState(false);
 
   const codeString =
@@ -42,16 +57,13 @@ function CodeBlock({
       ? children
       : '';
 
-  const language = className.replace('language-', '') || 'code';
-
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(codeString.trim());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Copy failed:', err);
-      setCopied(false);
+      console.error('Failed to copy text:', err);
     }
   };
 
@@ -63,21 +75,22 @@ function CodeBlock({
     );
   }
 
+  const languageMatch = className?.match(/language-(\w+)/);
+  const language = languageMatch?.[1] ?? 'text';
+
   return (
-    <div className="relative group my-6">
-      <div className="flex items-center justify-between bg-gray-800 px-4 py-2 text-xs text-gray-400 rounded-t-md">
+    <div className="relative group mb-4 rounded-md border border-gray-700 bg-[#1e1e1e]">
+      <div className="flex justify-between items-center px-4 py-2 bg-[#2d2d2d] text-xs font-mono text-gray-400 rounded-t-md">
         <span>{language}</span>
         <button
           onClick={handleCopy}
-          className="bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded"
+          className="text-xs text-white bg-gray-700 px-2 py-1 rounded hover:bg-cyan-600 transition-opacity"
         >
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
-      <pre className="bg-gray-900 p-4 rounded-b-md overflow-x-auto">
-        <code className={className} {...props}>
-          {codeString}
-        </code>
+      <pre className={`p-4 overflow-x-auto ${className}`}>
+        <code {...props}>{children}</code>
       </pre>
     </div>
   );
@@ -120,5 +133,3 @@ export default function BlogDetail({ post }: Props) {
     </article>
   );
 }
-
-
