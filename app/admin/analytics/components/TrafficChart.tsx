@@ -68,7 +68,7 @@ export default function TrafficChart() {
         });
         setError(null);
       } catch (err) {
-        setError("An unexpected error occurred");
+        setError("An unexpected error occurred" + err);
         setChartData(null);
       }
     };

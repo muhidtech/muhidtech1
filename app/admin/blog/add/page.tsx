@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { updatePost, createPost, getPostBySlug } from "@/app/api/api"; // Assume you have a getPostBySlug function
 import ProtectedRoute from "@/app/hooks/ProtectedRoute";
 import Layout from "../../dashboard/components/layout/Layout";
+import { BlogPost } from "../page";
 
 const MarkdownEditor = dynamic(() => import("../components/MarkdownEditor"), { ssr: false });
 
@@ -16,7 +17,7 @@ export default function Page() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [postToEdit, setPostToEdit] = useState<any>(null);
+  const [postToEdit, setPostToEdit] = useState<BlogPost| null>(null);
 
   // Form state
   const [title, setTitle] = useState("");
@@ -56,13 +57,13 @@ export default function Page() {
         setSlug(post.slug || "");
         setAuthor(post.author || "");
         setReadTime(post.readTime || "");
-        setTags((post.tags && post.tags.join(", ")) || "");
+        setTags(Array.isArray(post.tags) ? post.tags.join(", ") : "");
         setFeatured(post.featured || false);
         setVideoUrl(post.videoUrl || "");
         setContent(post.content || "");
         // imageFile cannot be populated as File object, maybe show filename somewhere if needed
       } catch (error) {
-        alert("Failed to load post.");
+        alert("Failed to load post." + error);
         router.back();
       } finally {
         setIsLoading(false);
@@ -87,7 +88,7 @@ export default function Page() {
       featured,
       videoUrl,
       content,
-      image: imageFile?.name ?? (postToEdit?.image ?? ""), // Keep existing image if editing and no new file selected
+      image: imageFile ?? undefined, // Only pass File or undefined
     };
 
     console.log("📝 Blog Data to Submit:", blogData);
@@ -173,7 +174,9 @@ export default function Page() {
                 </div>
               )}
               {!imageFile && isEditMode && postToEdit?.image && (
-                <p className="text-sm text-gray-500 mt-1">Current Image: {postToEdit.image}</p>
+                <p className="text-sm text-gray-500 mt-1">
+                  Current Image: {typeof postToEdit.image === "string" ? postToEdit.image : postToEdit.image.name}
+                </p>
               )}
             </div>
 

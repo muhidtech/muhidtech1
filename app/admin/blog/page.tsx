@@ -6,6 +6,7 @@ import Layout from "../dashboard/components/layout/Layout";
 import ProtectedRoute from "@/app/hooks/ProtectedRoute";
 import { fetchPosts, deletePost } from "@/app/api/api";
 import SkeletonCard from "./components/SkeletonCard";
+import Image from "next/image";
 
 export interface BlogPost {
   id: number;
@@ -14,7 +15,7 @@ export interface BlogPost {
   category: string;
   date: string;
   slug: string;
-  image?: string;
+  image: string | File | null;
   featured?: boolean;
   author?: string;
   readTime?: string;
@@ -35,7 +36,7 @@ export default function BlogPage() {
         const data = await fetchPosts();
         setBlogs(data);
       } catch (e) {
-        setError("Failed to fetch blogs");
+        setError("Failed to fetch blogs" + e);
       } finally {
         setLoading(false);
       }
@@ -77,9 +78,17 @@ export default function BlogPage() {
                     key={blog.id}
                     className="bg-gradient-to-tr from-cyan-700/80 to-blue-800/90 border border-cyan-400/40 rounded-2xl p-6 shadow-xl hover:shadow-cyan-400/60 transform hover:-translate-y-1 transition duration-300"
                   >
-                    {blog.image && (
-                      <img
-                        src={blog.image}
+                    {((typeof blog.image === "string" && blog.image) ||
+                      (blog.image instanceof File && blog.image)) && (
+                      <Image
+                        fill
+                        src={
+                          typeof blog.image === "string"
+                            ? blog.image
+                            : blog.image instanceof File
+                            ? URL.createObjectURL(blog.image)
+                            : "" // fallback to empty string, which is valid but will not render an image
+                        }
                         alt={blog.title}
                         className="rounded-xl mb-4 w-full h-40 object-cover shadow-md"
                       />
