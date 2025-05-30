@@ -8,7 +8,6 @@ import rehypeHighlight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css'; // Dark theme for code
 import ReactPlayer from 'react-player/youtube';
 import Image from 'next/image';
-import { BlogPost } from '../../data/mockPosts';
 
 interface Props {
   post: {
