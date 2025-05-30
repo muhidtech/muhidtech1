@@ -27,26 +27,24 @@ interface Props {
   };
 }
 
-export const CodeBlock: React.FC<CodeProps> = ({
-  inline,
-  className,
-  children,
-}) => {
+
+export const CodeBlock: React.FC<CodeProps> = ({ inline, className, children }) => {
   const [copied, setCopied] = useState(false);
 
+  // For inline code (`inline` === true)
   if (inline) {
-    return <code className="bg-neutral-800 text-white px-1 rounded">{children}</code>;
+    return (
+      <code className="bg-neutral-800 text-white px-1 py-0.5 rounded text-sm">
+        {children}
+      </code>
+    );
   }
 
+  // For code blocks (triple backticks)
   const languageMatch = /language-(\w+)/.exec(className || '');
   const language = languageMatch?.[1] ?? 'text';
 
-  const codeString =
-    typeof children === 'string'
-      ? children
-      : Array.isArray(children)
-      ? children.join('')
-      : '';
+  const codeString = Array.isArray(children) ? children.join('') : String(children);
 
   const handleCopy = async () => {
     try {
@@ -65,15 +63,11 @@ export const CodeBlock: React.FC<CodeProps> = ({
         <button
           onClick={handleCopy}
           className="text-xs text-[#d4d4d4] bg-[#0e639c] px-3 py-1 rounded hover:bg-[#1177bb] transition-colors duration-200"
-          aria-label="Copy code to clipboard"
         >
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
-      <pre
-        className="p-4 overflow-x-auto text-sm text-[#d4d4d4]"
-        style={{ fontFamily: "'Source Code Pro', monospace" }}
-      >
+      <pre className="p-4 overflow-x-auto text-sm text-[#d4d4d4]">
         <SyntaxHighlighter language={language} style={dark} PreTag="div">
           {codeString}
         </SyntaxHighlighter>
