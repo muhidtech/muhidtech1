@@ -2,11 +2,11 @@ import BlogPostPage from "./BlogPostPage";
 import { getPostBySlug } from "@/app/api/api";
 import { Metadata } from 'next';
 
-interface PageProps {
-  params: { slug: string };
-}
+type Props = {
+  params: { slug: string }
+};
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   if (!post) {
     return { title: 'Post Not Found' };
@@ -29,6 +29,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function Page({ params }: PageProps) {
+export default function Page({ params }: Props) {
   return <BlogPostPage slug={params.slug} />;
 }
