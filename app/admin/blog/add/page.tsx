@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { updatePost, createPost, getPostBySlug } from "@/app/api/api"; // Assume you have a getPostBySlug function
@@ -10,7 +10,7 @@ import { BlogPost } from "../page";
 
 const MarkdownEditor = dynamic(() => import("../components/MarkdownEditor"), { ssr: false });
 
-export default function Page() {
+function AddBlogPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const slugParam = searchParams.get("slug"); // For editing, pass ?slug=your-post-slug
@@ -224,5 +224,15 @@ export default function Page() {
         </div>
       </Layout>
     </ProtectedRoute>
+  );
+}
+
+
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AddBlogPageContent />
+    </Suspense>
   );
 }
